@@ -1,0 +1,53 @@
+services:
+  db:
+    image: postgres:17-bookworm
+    environment:
+      POSTGRES_DB: rustpath
+      POSTGRES_USER: rustpath
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rustpath -d rustpath"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+    networks: [private]
+  api:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql://rustpath:${POSTGRES_PASSWORD}@db:5432/rustpath
+      RUNNER_URL: http://runner:4000
+      RUNNER_SECRET: ${RUNNER_SECRET:?Set RUNNER_SECRET in .env}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      APP_ORIGIN: ${APP_ORIGIN:-http://localhost:8080}
+      RUST_LOG: rustpath_api=info,tower_http=info
+    depends_on:
+      db: { condition: service_healthy }
+      runner: { condition: service_started }
+    restart: unless-stopped
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    networks: [private]
+  web:
+    build: ./frontend
+    ports: ["${WEB_BIND:-127.0.0.1}:8080:80"]
+    depends_on: [api]
+    restart: unless-stopped
+    networks: [private, public]
+  runner:
+    build: ./runner
+    environment:
+      RUNNER_SECRET: ${RUNNER_SECRET}
+      RUNNER_IMAGE: ${RUNNER_IMAGE:-rust:1.99.0-slim-bookworm}
+    # Development only. Docker socket gives this service root-equivalent access to the host.
+    # Production: dedicated execution node with gVisor/microVM isolation; see docs/SECURITY.md.
+    volumes: ["/var/run/docker.sock:/var/run/docker.sock"]
+    restart: unless-stopped
+    networks: [private]
+volumes:
+  pgdata:
+networks:
+  private: { internal: true }
+  public: {}

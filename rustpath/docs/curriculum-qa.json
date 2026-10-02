@@ -1,0 +1,98 @@
+[
+  {
+    "lesson": "hello",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 1
+  },
+  {
+    "lesson": "arithmetic",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 3
+  },
+  {
+    "lesson": "branches",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 3
+  },
+  {
+    "lesson": "loops",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 3
+  },
+  {
+    "lesson": "borrow",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 3
+  },
+  {
+    "lesson": "mut-borrow",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 2
+  },
+  {
+    "lesson": "owned-value",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 2
+  },
+  {
+    "lesson": "slice",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 3
+  },
+  {
+    "lesson": "option",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 3
+  },
+  {
+    "lesson": "result",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 4
+  },
+  {
+    "lesson": "iterator",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 3
+  },
+  {
+    "lesson": "hashmap",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 3
+  },
+  {
+    "lesson": "struct",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 2
+  },
+  {
+    "lesson": "enum",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 3
+  },
+  {
+    "lesson": "trait",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 3
+  },
+  {
+    "lesson": "composition",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 4
+  }
+]

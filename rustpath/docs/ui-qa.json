@@ -1,0 +1,14 @@
+{
+  "screens": 10,
+  "widths": [
+    1440,
+    390
+  ],
+  "javascript_errors": [],
+  "horizontal_overflow": false,
+  "hints": "pass",
+  "runner_unavailable_feedback": "pass",
+  "success_fixture": "pass (mock, not execution)",
+  "session_error": "pass",
+  "draft_autosave_reload": "pass (real API/PostgreSQL)"
+}

@@ -1,0 +1,2 @@
+<script setup lang="ts">defineProps<{name:'spark'|'turn'; size?:number}>()</script>
+<template><svg :width="size ?? 18" :height="size ?? 18" viewBox="0 0 24 24" fill="none" aria-hidden="true" class="icon"><path v-if="name==='spark'" d="M12 2 14.6 9.4 22 12 14.6 14.6 12 22 9.4 14.6 2 12 9.4 9.4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path v-else d="M5 3v9a5 5 0 0 0 5 5h10m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></template>
