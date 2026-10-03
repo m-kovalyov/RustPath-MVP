@@ -50,3 +50,13 @@ XP — сумма сохранённых completion, не счётчик в па
 API не хранит учебный прогресс в памяти и может масштабироваться за балансировщиком. Текущий per-learner limiter и semaphore локальны экземпляру: перед несколькими репликами заменить limiter на Redis/ingress, добавить общую очередь и worker pool. Нельзя считать этот MVP уже доказанно масштабируемым: нагрузочные измерения ещё не выполнены.
 
 На старте один экземпляр применяет миграции через SQLx; для production вынести миграции в release job. PostgreSQL — managed БД с PITR, индексами и контролем connection budget. Курс JSON → версионируемый CMS с публикацией/ревью после подтверждения авторского процесса. Микросервисы для остальных функций пока не нужны.
+
+## Изменения v0.2
+
+Course теперь содержит tracks, version, explicit prerequisites, lesson kind/outcome/readings. Entry каждого track независим; completed уроки всегда доступны. Старые core ID/XP/tests неизменны. UI suggestion и серверный unlock используют одинаковые prerequisites, а не соседнюю запись глобального массива.
+
+Добавлены `POST /api/lessons/:id/answer`, `GET /api/bookmarks`, `PUT/DELETE /api/lessons/:id/bookmark`. Quiz correct/explanation скрыты в public lesson: explanation приходит после попытки, правильность определяет сервер. Quiz completion использует тот же транзакционный репозиторий и unique key, что и code. Attempt limiter общий, но всё ещё локален API-процессу.
+
+Migration 002 создаёт bookmarks с FK к learners; прежние таблицы и migration 001 не меняются. Гостевой token остаётся тем же. Стабильное обновление требует того же Compose project/volume, Origin и cookie. Сохранённый track preference — только UI-настройка localStorage, а не авторизация.
+
+Учебный DOM разбит на step tabs, routes ленивые; CodeMirror отдельно динамический и не загружается для quiz. Ownership-модель — четыре фиксированных состояния, без интерпретации learner code. Bookmarks не дают доступ к закрытым заданиям.

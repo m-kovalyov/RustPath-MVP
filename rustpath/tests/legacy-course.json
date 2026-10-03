@@ -1,0 +1,582 @@
+{
+  "modules": [
+    {
+      "id": "foundations",
+      "number": 1,
+      "title": "Первый контакт",
+      "description": "Функции, типы и решения. Без перегруза."
+    },
+    {
+      "id": "ownership",
+      "number": 2,
+      "title": "Кому принадлежат данные",
+      "description": "Ownership и borrowing на маленьких примерах."
+    },
+    {
+      "id": "collections",
+      "number": 3,
+      "title": "Данные и ошибки",
+      "description": "Коллекции, Option, Result и итераторы."
+    },
+    {
+      "id": "design",
+      "number": 4,
+      "title": "Думать как Rust-разработчик",
+      "description": "Структуры, enums, traits и композиция."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "hello",
+      "module": "foundations",
+      "title": "Привет, Rust!",
+      "summary": "Первая функция и первое маленькое достижение.",
+      "minutes": 5,
+      "xp": 50,
+      "theory": [
+        {
+          "heading": "Функция возвращает значение",
+          "text": "fn объявляет функцию, а -> задаёт тип результата. &'static str — ссылка на строковый литерал, который живёт всё время работы программы. Последнее выражение без точки с запятой становится результатом функции. Подробно время жизни изучим позже.",
+          "example": "pub fn language() -> &'static str {\n    \"Rust\"\n}"
+        },
+        {
+          "heading": "Как пройти уровень",
+          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
+          "example": null
+        }
+      ],
+      "task": "Верните из greeting точную строку «Привет, Rust!». Не меняйте сигнатуру функции.",
+      "starter": "pub fn greeting() -> &'static str {\n    \"Привет, мир!\"\n}",
+      "solution": "pub fn greeting() -> &'static str { \"Привет, Rust!\" }",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n    use super::*;\n    #[test]\n    fn case_1() { assert_eq!(greeting(), \"Привет, Rust!\"); }\n}",
+      "hints": [
+        "Измените только строку внутри кавычек.",
+        "Нужна точная строка «Привет, Rust!», включая запятую и восклицательный знак."
+      ],
+      "test_labels": [
+        "Точное приветствие"
+      ]
+    },
+    {
+      "id": "arithmetic",
+      "module": "foundations",
+      "title": "Числа работают на вас",
+      "summary": "Типы и арифметика без магии.",
+      "minutes": 8,
+      "xp": 50,
+      "theory": [
+        {
+          "heading": "Числовые типы",
+          "text": "i32 — знаковое 32-битное число. Аргументы функции имеют имена и типы. Арифметика работает как обычно, но тип результата должен совпадать с объявленным. Условия задания задают безопасный диапазон без переполнения.",
+          "example": "pub fn double(x: i32) -> i32 {\n    x * 2\n}"
+        },
+        {
+          "heading": "Как пройти уровень",
+          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
+          "example": null
+        }
+      ],
+      "task": "Реализуйте sum: сумму a и b. Входные значения находятся в диапазоне от -1000 до 1000.",
+      "starter": "pub fn sum(a: i32, b: i32) -> i32 {\n    0\n}",
+      "solution": "pub fn sum(a: i32, b: i32) -> i32 { a + b }",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n    use super::*;\n    #[test]\n    fn case_1() { assert_eq!(sum(2, 3), 5); }\n    #[test]\n    fn case_2() { assert_eq!(sum(-8, 3), -5); }\n    #[test]\n    fn case_3() { assert_eq!(sum(0, 0), 0); }\n}",
+      "hints": [
+        "Используйте аргументы a и b.",
+        "Последним выражением может быть a + b."
+      ],
+      "test_labels": [
+        "Положительные числа",
+        "Отрицательные числа",
+        "Ноль"
+      ]
+    },
+    {
+      "id": "branches",
+      "module": "foundations",
+      "title": "Выбираем путь",
+      "summary": "if — это тоже выражение.",
+      "minutes": 8,
+      "xp": 50,
+      "theory": [
+        {
+          "heading": "Ветвления возвращают значения",
+          "text": "Условия if должны иметь тип bool. Ветки if и else могут возвращать значение: тогда их типы должны совпадать. Это позволяет писать компактно и не вводить изменяемую переменную.",
+          "example": "pub fn sign(x: i32) -> &'static str {\n    if x >= 0 { \"неотрицательное\" } else { \"отрицательное\" }\n}"
+        },
+        {
+          "heading": "Как пройти уровень",
+          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
+          "example": null
+        }
+      ],
+      "task": "Верните true, если age не меньше 18; иначе false. age — u8.",
+      "starter": "pub fn is_adult(age: u8) -> bool {\n    false\n}",
+      "solution": "pub fn is_adult(age: u8) -> bool { age >= 18 }",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n    use super::*;\n    #[test]\n    fn case_1() { assert!(is_adult(18)); }\n    #[test]\n    fn case_2() { assert!(!is_adult(17)); }\n    #[test]\n    fn case_3() { assert!(is_adult(99)); }\n}",
+      "hints": [
+        "Не забудьте, что 18 лет уже подходит.",
+        "Сравнение age >= 18 само возвращает bool."
+      ],
+      "test_labels": [
+        "Граница 18",
+        "Меньше 18",
+        "Больше 18"
+      ]
+    },
+    {
+      "id": "loops",
+      "module": "foundations",
+      "title": "Повторение без рутины",
+      "summary": "Изменяемые переменные и диапазоны.",
+      "minutes": 8,
+      "xp": 50,
+      "theory": [
+        {
+          "heading": "let mut и циклы",
+          "text": "По умолчанию переменные неизменяемы. mut разрешает менять значение. for перебирает диапазон: 1..=n включает обе границы. При n = 0 диапазон 1..=0 для u32 пуст, поэтому сумма останется нулевой.",
+          "example": "let mut total = 0;\nfor x in 1..=3 {\n    total += x;\n}"
+        },
+        {
+          "heading": "Как пройти уровень",
+          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
+          "example": null
+        }
+      ],
+      "task": "Верните сумму всех чисел от 1 до n включительно. n находится в диапазоне 0..=1000.",
+      "starter": "pub fn sum_to(n: u32) -> u32 {\n    let mut total = 0;\n    // Добавьте цикл\n    total\n}",
+      "solution": "pub fn sum_to(n: u32) -> u32 { let mut total=0; for x in 1..=n { total += x; } total }",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n    use super::*;\n    #[test]\n    fn case_1() { assert_eq!(sum_to(5), 15); }\n    #[test]\n    fn case_2() { assert_eq!(sum_to(0), 0); }\n    #[test]\n    fn case_3() { assert_eq!(sum_to(1), 1); }\n}",
+      "hints": [
+        "Понадобится диапазон с включённой верхней границей.",
+        "В цикле for x in 1..=n добавляйте x к total."
+      ],
+      "test_labels": [
+        "Сумма до 5",
+        "Пустой диапазон",
+        "Один элемент"
+      ]
+    },
+    {
+      "id": "borrow",
+      "module": "ownership",
+      "title": "Посмотреть, не забирая",
+      "summary": "Ссылки вместо перемещения.",
+      "minutes": 8,
+      "xp": 50,
+      "theory": [
+        {
+          "heading": "Ownership и заимствование",
+          "text": "У значения String один владелец. Передача String по значению перемещает владение, а &String или &str позволяет читать данные, не забирая их. Принимающий &str код работает и со строковыми литералами, и со String. chars() перебирает Unicode-символы; len() считает байты.",
+          "example": "let name = String::from(\"Rust\");\nlet view: &str = &name;\nprintln!(\"{view}\");"
+        },
+        {
+          "heading": "Как пройти уровень",
+          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
+          "example": null
+        }
+      ],
+      "task": "Посчитайте количество Unicode-символов в строке. Для «ёж» результат 2, а не число байт.",
+      "starter": "pub fn char_count(text: &str) -> usize {\n    0\n}",
+      "solution": "pub fn char_count(text: &str) -> usize { text.chars().count() }",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n    use super::*;\n    #[test]\n    fn case_1() { assert_eq!(char_count(\"Rust\"), 4); }\n    #[test]\n    fn case_2() { assert_eq!(char_count(\"ёж\"), 2); }\n    #[test]\n    fn case_3() { assert_eq!(char_count(\"\"), 0); }\n}",
+      "hints": [
+        "Не используйте text.len(): это количество байт.",
+        "Итератор text.chars() имеет метод count()."
+      ],
+      "test_labels": [
+        "Латиница",
+        "Unicode",
+        "Пустая строка"
+      ]
+    },
+    {
+      "id": "mut-borrow",
+      "module": "ownership",
+      "title": "Меняем аккуратно",
+      "summary": "Одна изменяемая ссылка — одно место изменения.",
+      "minutes": 8,
+      "xp": 50,
+      "theory": [
+        {
+          "heading": "Изменяемое заимствование",
+          "text": "&mut String разрешает изменить строку без перемещения владения. В один момент времени допустима либо одна изменяемая ссылка, либо несколько неизменяемых ссылок на те же данные. push_str добавляет текст к строке.",
+          "example": "let mut text = String::from(\"Rust\");\nlet reference = &mut text;\nreference.push_str(\"!\");"
+        },
+        {
+          "heading": "Как пройти уровень",
+          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
+          "example": null
+        }
+      ],
+      "task": "Добавьте ровно один «!» в конец переданной строки. Функция ничего не возвращает.",
+      "starter": "pub fn excite(text: &mut String) {\n    // Измените text\n}",
+      "solution": "pub fn excite(text: &mut String) { text.push_str(\"!\"); }",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n    use super::*;\n    #[test]\n    fn case_1() { let mut s=String::from(\"Rust\"); excite(&mut s); assert_eq!(s, \"Rust!\"); }\n    #[test]\n    fn case_2() { let mut s=String::new(); excite(&mut s); assert_eq!(s, \"!\"); }\n}",
+      "hints": [
+        "Вам уже передали изменяемую ссылку.",
+        "Вызовите text.push_str(\"!\")."
+      ],
+      "test_labels": [
+        "Обычная строка",
+        "Пустая строка"
+      ]
+    },
+    {
+      "id": "owned-value",
+      "module": "ownership",
+      "title": "Создать и передать",
+      "summary": "Возвращаем собственные данные.",
+      "minutes": 8,
+      "xp": 50,
+      "theory": [
+        {
+          "heading": "String владеет памятью",
+          "text": "String — изменяемая строка в куче, которая владеет своими данными. &str — представление строки без владения. format! создаёт новый String, и при возврате владение переходит вызывающему коду. Нельзя вернуть ссылку на локальный String.",
+          "example": "pub fn welcome(name: &str) -> String {\n    format!(\"Привет, {name}\")\n}"
+        },
+        {
+          "heading": "Как пройти уровень",
+          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
+          "example": null
+        }
+      ],
+      "task": "Верните новый String: «Привет, ИМЯ!», подставив аргумент name.",
+      "starter": "pub fn welcome(name: &str) -> String {\n    String::new()\n}",
+      "solution": "pub fn welcome(name: &str) -> String { format!(\"Привет, {name}!\") }",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n    use super::*;\n    #[test]\n    fn case_1() { assert_eq!(welcome(\"Миша\"), \"Привет, Миша!\"); }\n    #[test]\n    fn case_2() { assert_eq!(welcome(\"Rust\"), \"Привет, Rust!\"); }\n}",
+      "hints": [
+        "Создайте новую строку через format!.",
+        "Внутри литерала format! можно использовать {name}."
+      ],
+      "test_labels": [
+        "Имя на кириллице",
+        "Имя на латинице"
+      ]
+    },
+    {
+      "id": "slice",
+      "module": "ownership",
+      "title": "Работаем с частью",
+      "summary": "Срезы без копирования.",
+      "minutes": 8,
+      "xp": 50,
+      "theory": [
+        {
+          "heading": "Срез — вид на последовательность",
+          "text": "&[i32] — ссылка на последовательность элементов, а не только на Vec. iter() читает элементы без перемещения. Метод sum() складывает числа, а тип результата определяется сигнатурой функции. Это пример абстракции без лишнего выделения памяти.",
+          "example": "pub fn size(values: &[i32]) -> usize {\n    values.len()\n}"
+        },
+        {
+          "heading": "Как пройти уровень",
+          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
+          "example": null
+        }
+      ],
+      "task": "Сложите элементы среза. Пустой срез должен дать 0. Сумма гарантированно помещается в i32.",
+      "starter": "pub fn total(values: &[i32]) -> i32 {\n    0\n}",
+      "solution": "pub fn total(values: &[i32]) -> i32 { values.iter().sum() }",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n    use super::*;\n    #[test]\n    fn case_1() { assert_eq!(total(&[1,2,3]), 6); }\n    #[test]\n    fn case_2() { assert_eq!(total(&[]), 0); }\n    #[test]\n    fn case_3() { assert_eq!(total(&[-5,2]), -3); }\n}",
+      "hints": [
+        "Можно использовать цикл или iter().",
+        "values.iter().sum() возвращает нужную сумму."
+      ],
+      "test_labels": [
+        "Несколько чисел",
+        "Пустой срез",
+        "Отрицательные числа"
+      ]
+    },
+    {
+      "id": "option",
+      "module": "collections",
+      "title": "Значение может отсутствовать",
+      "summary": "Option вместо null.",
+      "minutes": 8,
+      "xp": 50,
+      "theory": [
+        {
+          "heading": "Some и None",
+          "text": "Option<T> явно описывает наличие или отсутствие значения. first() на срезе возвращает Option<&T>. copied() превращает ссылку на Copy-тип в собственное значение внутри Option, без unwrap и риска паники.",
+          "example": "let numbers = [4, 8];\nlet first: Option<i32> = numbers.first().copied();"
+        },
+        {
+          "heading": "Как пройти уровень",
+          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
+          "example": null
+        }
+      ],
+      "task": "Верните первый элемент среза в Some. Если срез пуст, верните None. Не используйте unwrap.",
+      "starter": "pub fn first(values: &[i32]) -> Option<i32> {\n    None\n}",
+      "solution": "pub fn first(values: &[i32]) -> Option<i32> { values.first().copied() }",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n    use super::*;\n    #[test]\n    fn case_1() { assert_eq!(first(&[9,4]), Some(9)); }\n    #[test]\n    fn case_2() { assert_eq!(first(&[]), None); }\n    #[test]\n    fn case_3() { assert_eq!(first(&[0]), Some(0)); }\n}",
+      "hints": [
+        "У среза уже есть метод first().",
+        "После first() вызовите copied(), чтобы получить Option<i32>."
+      ],
+      "test_labels": [
+        "Первый элемент",
+        "Отсутствие значения",
+        "Ноль как значение"
+      ]
+    },
+    {
+      "id": "result",
+      "module": "collections",
+      "title": "Ошибка — тоже результат",
+      "summary": "Явно обрабатываем некорректный ввод.",
+      "minutes": 8,
+      "xp": 50,
+      "theory": [
+        {
+          "heading": "Result<T, E>",
+          "text": "Result содержит Ok(T) при успехе и Err(E) при ошибке. parse::<i32>() проверяет строку и возвращает Result. map_err позволяет привести ошибку к собственному понятному типу, не вызывая панику.",
+          "example": "let number = \"42\".parse::<i32>();\nlet result = number.map_err(|_| \"не число\");"
+        },
+        {
+          "heading": "Как пройти уровень",
+          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
+          "example": null
+        }
+      ],
+      "task": "Преобразуйте text в i32. При любой ошибке возвращайте Err(\"не число\"). Используйте стандартный parse, без обрезки пробелов.",
+      "starter": "pub fn parse_number(text: &str) -> Result<i32, &'static str> {\n    Err(\"не число\")\n}",
+      "solution": "pub fn parse_number(text: &str) -> Result<i32, &'static str> { text.parse::<i32>().map_err(|_| \"не число\") }",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n    use super::*;\n    #[test]\n    fn case_1() { assert_eq!(parse_number(\"42\"), Ok(42)); }\n    #[test]\n    fn case_2() { assert_eq!(parse_number(\"-7\"), Ok(-7)); }\n    #[test]\n    fn case_3() { assert_eq!(parse_number(\"abc\"), Err(\"не число\")); }\n    #[test]\n    fn case_4() { assert_eq!(parse_number(\"2147483648\"), Err(\"не число\")); }\n}",
+      "hints": [
+        "Сначала вызовите text.parse::<i32>().",
+        "Превратите ошибку в строку через map_err(|_| \"не число\")."
+      ],
+      "test_labels": [
+        "Число",
+        "Отрицательное число",
+        "Неверный ввод",
+        "Переполнение"
+      ]
+    },
+    {
+      "id": "iterator",
+      "module": "collections",
+      "title": "Конвейер данных",
+      "summary": "filter → map → collect.",
+      "minutes": 8,
+      "xp": 50,
+      "theory": [
+        {
+          "heading": "Итераторы ленивы",
+          "text": "Итератор ничего не делает, пока его не потребляет завершающая операция вроде collect. filter выбирает элементы, map преобразует их. copied() позволяет удобно работать с числами вместо ссылок, сохраняя исходный срез.",
+          "example": "let doubled: Vec<i32> = [1, 2, 3]\n    .iter().copied().map(|x| x * 2).collect();"
+        },
+        {
+          "heading": "Как пройти уровень",
+          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
+          "example": null
+        }
+      ],
+      "task": "Верните Vec квадратов только положительных чисел, сохранив порядок. Все входы от -1000 до 1000.",
+      "starter": "pub fn positive_squares(values: &[i32]) -> Vec<i32> {\n    Vec::new()\n}",
+      "solution": "pub fn positive_squares(values: &[i32]) -> Vec<i32> { values.iter().copied().filter(|x| *x > 0).map(|x| x*x).collect() }",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n    use super::*;\n    #[test]\n    fn case_1() { assert_eq!(positive_squares(&[-2,0,3,2]), vec![9,4]); }\n    #[test]\n    fn case_2() { assert!(positive_squares(&[]).is_empty()); }\n    #[test]\n    fn case_3() { assert!(positive_squares(&[-1,0]).is_empty()); }\n}",
+      "hints": [
+        "Сначала .iter().copied(), затем filter для x > 0.",
+        "После фильтра используйте map(|x| x * x).collect()."
+      ],
+      "test_labels": [
+        "Фильтрация и порядок",
+        "Пустой ввод",
+        "Без положительных"
+      ]
+    },
+    {
+      "id": "hashmap",
+      "module": "collections",
+      "title": "Считаем слова",
+      "summary": "Ассоциативная коллекция и Entry API.",
+      "minutes": 12,
+      "xp": 50,
+      "theory": [
+        {
+          "heading": "HashMap и entry",
+          "text": "HashMap<K,V> хранит пары ключ-значение. entry(key).or_insert(0) даёт изменяемую ссылку на существующее значение или вставляет начальное. За счёт этого счётчик можно обновить без отдельного поиска. split_whitespace делит строку по пробельным символам.",
+          "example": "use std::collections::HashMap;\nlet mut counts = HashMap::new();\n*counts.entry(\"Rust\").or_insert(0) += 1;"
+        },
+        {
+          "heading": "Как пройти уровень",
+          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
+          "example": null
+        }
+      ],
+      "task": "Посчитайте частоту слов с учётом регистра. Возвращайте HashMap<String, usize>. Разделяйте слова через split_whitespace.",
+      "starter": "use std::collections::HashMap;\n\npub fn word_counts(text: &str) -> HashMap<String, usize> {\n    HashMap::new()\n}",
+      "solution": "use std::collections::HashMap; pub fn word_counts(text: &str) -> HashMap<String, usize> { let mut m=HashMap::new(); for w in text.split_whitespace() { *m.entry(w.to_owned()).or_insert(0) += 1; } m }",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n    use super::*;\n    #[test]\n    fn case_1() { let m=word_counts(\"rust rust code\"); assert_eq!(m.get(\"rust\"), Some(&2)); assert_eq!(m.get(\"code\"), Some(&1)); }\n    #[test]\n    fn case_2() { assert!(word_counts(\"\").is_empty()); }\n    #[test]\n    fn case_3() { assert_eq!(word_counts(\"Rust rust\").len(), 2); }\n}",
+      "hints": [
+        "Создайте HashMap и пройдите по text.split_whitespace().",
+        "В цикле увеличивайте *map.entry(word.to_owned()).or_insert(0)."
+      ],
+      "test_labels": [
+        "Повторения",
+        "Пустая строка",
+        "Учёт регистра"
+      ]
+    },
+    {
+      "id": "struct",
+      "module": "design",
+      "title": "Данные + поведение",
+      "summary": "Инкапсуляция через struct и impl.",
+      "minutes": 8,
+      "xp": 50,
+      "theory": [
+        {
+          "heading": "Структуры и методы",
+          "text": "struct объединяет данные, impl добавляет методы. self обозначает значение, &self — чтение без передачи владения. Приватные поля скрывают внутреннее устройство, публичные методы дают безопасный интерфейс. Это инкапсуляция без классов.",
+          "example": "pub struct User {\n    name: String,\n}\nimpl User {\n    pub fn name(&self) -> &str { &self.name }\n}"
+        },
+        {
+          "heading": "Как пройти уровень",
+          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
+          "example": null
+        }
+      ],
+      "task": "Реализуйте Rectangle::area. Ширина и высота не больше 1000. Не меняйте структуру и new.",
+      "starter": "pub struct Rectangle {\n    width: u32,\n    height: u32,\n}\nimpl Rectangle {\n    pub fn new(width: u32, height: u32) -> Self {\n        Self { width, height }\n    }\n    pub fn area(&self) -> u32 {\n        0\n    }\n}",
+      "solution": "pub struct Rectangle { width:u32,height:u32 } impl Rectangle { pub fn new(width:u32,height:u32)->Self{Self{width,height}} pub fn area(&self)->u32{self.width*self.height} }",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n    use super::*;\n    #[test]\n    fn case_1() { assert_eq!(Rectangle::new(3,4).area(), 12); }\n    #[test]\n    fn case_2() { assert_eq!(Rectangle::new(0,8).area(), 0); }\n}",
+      "hints": [
+        "Поля доступны через self.width и self.height.",
+        "Площадь — произведение ширины и высоты."
+      ],
+      "test_labels": [
+        "Площадь",
+        "Нулевая сторона"
+      ]
+    },
+    {
+      "id": "enum",
+      "module": "design",
+      "title": "Моделируем состояния",
+      "summary": "Невозможные состояния не представимы.",
+      "minutes": 8,
+      "xp": 50,
+      "theory": [
+        {
+          "heading": "Enum и исчерпывающий match",
+          "text": "Enum описывает набор возможных состояний. match требует обработать все варианты: добавили новый вариант — компилятор подскажет, где обновить логику. Вместо нескольких bool-полей, которые могут противоречить друг другу, используйте одно явное состояние.",
+          "example": "enum Door { Open, Closed }\nfn open(door: Door) -> bool {\n    match door { Door::Open => true, Door::Closed => false }\n}"
+        },
+        {
+          "heading": "Как пройти уровень",
+          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
+          "example": null
+        }
+      ],
+      "task": "Верните названия состояний: Draft → «черновик», Running → «проверка», Passed → «готово».",
+      "starter": "pub enum Status { Draft, Running, Passed }\npub fn label(status: Status) -> &'static str {\n    \"\"\n}",
+      "solution": "pub enum Status{Draft,Running,Passed} pub fn label(status:Status)->&'static str { match status { Status::Draft=>\"черновик\",Status::Running=>\"проверка\",Status::Passed=>\"готово\" } }",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n    use super::*;\n    #[test]\n    fn case_1() { assert_eq!(label(Status::Draft), \"черновик\"); }\n    #[test]\n    fn case_2() { assert_eq!(label(Status::Running), \"проверка\"); }\n    #[test]\n    fn case_3() { assert_eq!(label(Status::Passed), \"готово\"); }\n}",
+      "hints": [
+        "Используйте match status с тремя ветками.",
+        "Каждая ветка имеет вид Status::Draft => \"черновик\"."
+      ],
+      "test_labels": [
+        "Draft",
+        "Running",
+        "Passed"
+      ]
+    },
+    {
+      "id": "trait",
+      "module": "design",
+      "title": "Общий контракт",
+      "summary": "Полиморфизм через traits.",
+      "minutes": 8,
+      "xp": 50,
+      "theory": [
+        {
+          "heading": "Trait задаёт поведение",
+          "text": "Trait похож на интерфейс: описывает возможности типа, а не его поля. impl Trait for Type связывает тип и контракт. Код, принимающий &impl Trait, работает с любым реализующим его типом: это статический полиморфизм без наследования.",
+          "example": "pub trait Named { fn name(&self) -> &str; }\npub fn greet(value: &impl Named) -> String {\n    format!(\"Привет, {}\", value.name())\n}"
+        },
+        {
+          "heading": "Как пройти уровень",
+          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
+          "example": null
+        }
+      ],
+      "task": "Реализуйте Score для Quiz: метод points возвращает correct * 10. correct не больше 1000.",
+      "starter": "pub trait Score {\n    fn points(&self) -> u32;\n}\npub struct Quiz { pub correct: u32 }\nimpl Score for Quiz {\n    fn points(&self) -> u32 {\n        0\n    }\n}",
+      "solution": "pub trait Score{fn points(&self)->u32;} pub struct Quiz{pub correct:u32} impl Score for Quiz{fn points(&self)->u32{self.correct*10}}",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n    use super::*;\n    #[test]\n    fn case_1() { assert_eq!(Quiz{correct:3}.points(), 30); }\n    #[test]\n    fn case_2() { fn measure(s: &impl Score)->u32{s.points()} assert_eq!(measure(&Quiz{correct:2}),20); }\n    #[test]\n    fn case_3() { assert_eq!(Quiz{correct:0}.points(), 0); }\n}",
+      "hints": [
+        "Число правильных ответов доступно через self.correct.",
+        "Верните self.correct * 10 из points."
+      ],
+      "test_labels": [
+        "Баллы",
+        "Вызов через trait",
+        "Ноль"
+      ]
+    },
+    {
+      "id": "composition",
+      "module": "design",
+      "title": "Маленький итоговый проект",
+      "summary": "Собираем знания в проверку решения.",
+      "minutes": 15,
+      "xp": 50,
+      "theory": [
+        {
+          "heading": "Композиция вместо наследования",
+          "text": "Композиция соединяет небольшие типы и функции. В Rust удобно явно представить успешный результат и ошибку через Result, а правила — через простые функции и traits. В этом задании используем struct, ссылки, Option и Result вместе.",
+          "example": "pub struct Check { pub passed: bool }\nfn describe(check: &Check) -> &'static str {\n    if check.passed { \"готово\" } else { \"повторить\" }\n}"
+        },
+        {
+          "heading": "Как пройти уровень",
+          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
+          "example": null
+        }
+      ],
+      "task": "Реализуйте average(scores): Err(\"пусто\") для пустого среза, Err(\"балл вне диапазона\") если хотя бы один балл больше 100, иначе Ok целочисленного среднего. Ограничение: не больше 1000 элементов. Сначала проверяйте пустой ввод.",
+      "starter": "pub fn average(scores: &[u32]) -> Result<u32, &'static str> {\n    Err(\"пусто\")\n}",
+      "solution": "pub fn average(scores:&[u32])->Result<u32,&'static str>{ if scores.is_empty(){return Err(\"пусто\");} if scores.iter().any(|x| *x>100){return Err(\"балл вне диапазона\");} Ok(scores.iter().sum::<u32>() / scores.len() as u32) }",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n    use super::*;\n    #[test]\n    fn case_1() { assert_eq!(average(&[]), Err(\"пусто\")); }\n    #[test]\n    fn case_2() { assert_eq!(average(&[50,100]), Ok(75)); }\n    #[test]\n    fn case_3() { assert_eq!(average(&[101]), Err(\"балл вне диапазона\")); }\n    #[test]\n    fn case_4() { assert_eq!(average(&[0,1]), Ok(0)); }\n}",
+      "hints": [
+        "Сначала is_empty(), затем any(|x| *x > 100).",
+        "Для корректного ввода разделите sum::<u32>() на scores.len() as u32."
+      ],
+      "test_labels": [
+        "Пустой ввод",
+        "Среднее",
+        "Недопустимый балл",
+        "Округление вниз"
+      ]
+    }
+  ],
+  "roadmap": [
+    {
+      "title": "05 / Lifetimes и generics",
+      "description": "Ограничения типов, сложные заимствования, API библиотек.",
+      "outcome": "Библиотека с документированным публичным API и тестами."
+    },
+    {
+      "title": "06 / Async и конкурентность",
+      "description": "Tokio, Send/Sync, каналы, отмена, backpressure.",
+      "outcome": "Очередь задач с корректным завершением и ограничением нагрузки."
+    },
+    {
+      "title": "07 / Backend и PostgreSQL",
+      "description": "Axum, SQLx, миграции, транзакции, API и авторизация.",
+      "outcome": "Многопользовательский REST API с тестами и OpenAPI."
+    },
+    {
+      "title": "08 / Инженерная практика",
+      "description": "Архитектура, tracing, профилирование, CI, Docker и безопасность.",
+      "outcome": "Развёрнутый сервис с метриками, бэкапами и runbook."
+    },
+    {
+      "title": "09 / Capstone + code review",
+      "description": "Самостоятельный продукт, нагрузочные тесты и внешнее ревью.",
+      "outcome": "Защищённый проект; оценка компетенций по рубрике, не автоматический титул middle."
+    }
+  ]
+}

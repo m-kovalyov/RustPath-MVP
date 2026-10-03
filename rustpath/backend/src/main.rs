@@ -81,6 +81,12 @@ fn router(state: AppState) -> Router {
         .route("/api/session", post(session))
         .route("/api/course", get(course))
         .route("/api/progress", get(progress))
+        .route("/api/bookmarks", get(bookmarks))
+        .route(
+            "/api/lessons/{id}/bookmark",
+            put(add_bookmark).delete(remove_bookmark),
+        )
+        .route("/api/lessons/{id}/answer", post(answer))
         .route("/api/lessons/{id}", get(lesson))
         .route("/api/lessons/{id}/draft", get(draft).put(save_draft))
         .route("/api/lessons/{id}/submit", post(submit))
@@ -181,7 +187,7 @@ async fn rotate_session(
 }
 async fn course(State(s): State<AppState>) -> Json<serde_json::Value> {
     Json(
-        json!({"modules": s.course.modules, "lessons": s.course.lessons.iter().map(LessonSummary::from).collect::<Vec<_>>(), "roadmap": s.course.roadmap}),
+        json!({"version":s.course.version, "tracks":s.course.tracks, "modules": s.course.modules, "lessons": s.course.lessons.iter().map(LessonSummary::from).collect::<Vec<_>>(), "roadmap": s.course.roadmap}),
     )
 }
 async fn progress(
@@ -279,15 +285,12 @@ async fn submit(
     check_origin(&s, &headers)?;
     validate_code(&input.code)?;
     let (learner, l) = accessible_lesson(&s, &headers, &id).await?;
-    {
-        let mut rates = s.rate.lock().await;
-        rates.retain(|_, (time, _)| time.elapsed() < Duration::from_secs(60));
-        let entry = rates.entry(learner).or_insert((Instant::now(), 0));
-        if entry.1 >= 10 {
-            return Err(AppError::RateLimited);
-        }
-        entry.1 += 1;
+    if l.kind != "code" {
+        return Err(AppError::BadRequest(
+            "Для этого урока нужен ответ на вопрос, а не код.".into(),
+        ));
     }
+    limit_attempt(&s, learner).await?;
     let _permit = s
         .slots
         .clone()
@@ -305,6 +308,92 @@ async fn submit(
     Ok(Json(
         json!({"evaluation":result,"awarded_xp":awarded,"progress":progress}),
     ))
+}
+async fn limit_attempt(s: &AppState, learner: Uuid) -> Result<(), AppError> {
+    let mut rates = s.rate.lock().await;
+    rates.retain(|_, (time, _)| time.elapsed() < Duration::from_secs(60));
+    let entry = rates.entry(learner).or_insert((Instant::now(), 0));
+    if entry.1 >= 10 {
+        return Err(AppError::RateLimited);
+    }
+    entry.1 += 1;
+    Ok(())
+}
+#[derive(Deserialize)]
+struct AnswerInput {
+    option: usize,
+}
+async fn answer(
+    State(s): State<AppState>,
+    headers: HeaderMap,
+    Path(id): Path<String>,
+    Json(input): Json<AnswerInput>,
+) -> Result<Json<serde_json::Value>, AppError> {
+    check_origin(&s, &headers)?;
+    let (learner, l) = accessible_lesson(&s, &headers, &id).await?;
+    let quiz = l
+        .quiz
+        .as_ref()
+        .filter(|_| l.kind == "quiz")
+        .ok_or_else(|| AppError::BadRequest("Этот урок проверяется кодом.".into()))?;
+    if input.option >= quiz.options.len() {
+        return Err(AppError::BadRequest("Недопустимый вариант ответа.".into()));
+    }
+    limit_attempt(&s, learner).await?;
+    let passed = input.option == quiz.correct;
+    let awarded = s.repository.complete(learner, &id, l.xp, passed).await?;
+    let progress = s
+        .repository
+        .progress(learner, s.course.lessons.len())
+        .await?;
+    Ok(Json(
+        json!({"evaluation":{"passed":passed,"output":quiz.explanation,"duration_ms":0},"awarded_xp":awarded,"progress":progress}),
+    ))
+}
+async fn bookmarks(
+    State(s): State<AppState>,
+    headers: HeaderMap,
+) -> Result<Json<Vec<String>>, AppError> {
+    let user = learner(&s, &headers).await?;
+    Ok(Json(
+        sqlx::query_scalar(
+            "SELECT lesson_id FROM bookmarks WHERE learner_id=$1 ORDER BY created_at",
+        )
+        .bind(user)
+        .fetch_all(&s.db)
+        .await?,
+    ))
+}
+async fn bookmark_user(s: &AppState, headers: &HeaderMap, id: &str) -> Result<Uuid, AppError> {
+    check_origin(s, headers)?;
+    s.course.lesson(id).ok_or(AppError::NotFound)?;
+    learner(s, headers).await
+}
+async fn add_bookmark(
+    State(s): State<AppState>,
+    headers: HeaderMap,
+    Path(id): Path<String>,
+) -> Result<StatusCode, AppError> {
+    let user = bookmark_user(&s, &headers, &id).await?;
+    sqlx::query("INSERT INTO bookmarks(learner_id,lesson_id) VALUES($1,$2) ON CONFLICT DO NOTHING")
+        .bind(user)
+        .bind(id)
+        .execute(&s.db)
+        .await?;
+    Ok(StatusCode::NO_CONTENT)
+}
+async fn remove_bookmark(
+    State(s): State<AppState>,
+    headers: HeaderMap,
+    Path(id): Path<String>,
+) -> Result<StatusCode, AppError> {
+    let user = bookmark_user(&s, &headers, &id).await?;
+    sqlx::query("DELETE FROM bookmarks WHERE learner_id=$1 AND lesson_id=$2")
+        .bind(user)
+        .bind(id)
+        .execute(&s.db)
+        .await?;
+    Ok(StatusCode::NO_CONTENT)
 }
 #[cfg(test)]
 mod tests {
@@ -564,6 +653,120 @@ mod integration {
             .await
             .0,
             StatusCode::FORBIDDEN
+        );
+        let q = request(
+            &app,
+            "GET",
+            "/api/lessons/intro-rust",
+            Some(&cookie),
+            None,
+            false,
+        )
+        .await;
+        assert!(q.2["quiz"].get("correct").is_none());
+        assert_eq!(
+            request(
+                &app,
+                "POST",
+                "/api/lessons/intro-rust/answer",
+                Some(&cookie),
+                Some(r#"{"option":99}"#),
+                true
+            )
+            .await
+            .0,
+            StatusCode::BAD_REQUEST
+        );
+        let wrong_quiz = request(
+            &app,
+            "POST",
+            "/api/lessons/intro-rust/answer",
+            Some(&cookie),
+            Some(r#"{"option":1}"#),
+            true,
+        )
+        .await;
+        assert_eq!(wrong_quiz.2["awarded_xp"], 0);
+        let right_quiz = request(
+            &app,
+            "POST",
+            "/api/lessons/intro-rust/answer",
+            Some(&cookie),
+            Some(r#"{"option":0}"#),
+            true,
+        )
+        .await;
+        assert_eq!(right_quiz.2["awarded_xp"], 20);
+        assert_eq!(right_quiz.2["progress"]["xp"], 70);
+        assert_eq!(
+            request(
+                &app,
+                "POST",
+                "/api/lessons/intro-rust/answer",
+                Some(&cookie),
+                Some(r#"{"option":0}"#),
+                true
+            )
+            .await
+            .2["awarded_xp"],
+            0
+        );
+        assert_eq!(
+            request(
+                &app,
+                "GET",
+                "/api/lessons/intro-main",
+                Some(&cookie),
+                None,
+                false
+            )
+            .await
+            .0,
+            StatusCode::OK
+        );
+        assert_eq!(
+            request(
+                &app,
+                "PUT",
+                "/api/lessons/adv-min/bookmark",
+                Some(&cookie),
+                None,
+                true
+            )
+            .await
+            .0,
+            StatusCode::NO_CONTENT
+        );
+        assert_eq!(
+            request(&app, "GET", "/api/bookmarks", Some(&cookie), None, false)
+                .await
+                .2,
+            json!(["adv-min"])
+        );
+        assert_eq!(
+            request(&app, "GET", "/api/bookmarks", Some(&cookie2), None, false)
+                .await
+                .2,
+            json!([])
+        );
+        assert_eq!(
+            request(
+                &app,
+                "DELETE",
+                "/api/lessons/adv-min/bookmark",
+                Some(&cookie),
+                None,
+                true
+            )
+            .await
+            .0,
+            StatusCode::NO_CONTENT
+        );
+        assert_eq!(
+            request(&app, "GET", "/api/bookmarks", Some(&cookie), None, false)
+                .await
+                .2,
+            json!([])
         );
         let guest_id = Uuid::parse_str(guest["learner_id"].as_str().unwrap()).unwrap();
         let guest2_id = Uuid::parse_str(guest2["learner_id"].as_str().unwrap()).unwrap();

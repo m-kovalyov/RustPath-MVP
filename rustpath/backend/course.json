@@ -1,31 +1,728 @@
 {
+  "version": "0.2.0",
+  "tracks": [
+    {
+      "id": "intro",
+      "title": "С нуля",
+      "description": "Никогда не программировали? Начните здесь.",
+      "level": "Начинающий",
+      "entry": "intro-rust"
+    },
+    {
+      "id": "core",
+      "title": "Основы Rust",
+      "description": "Владение данными, коллекции и проектирование.",
+      "level": "Базовый",
+      "entry": "hello"
+    },
+    {
+      "id": "advanced",
+      "title": "Продвинутый Rust",
+      "description": "Обобщения, lifetimes, ошибки и конкурентность.",
+      "level": "Продвинутый",
+      "entry": "adv-min"
+    }
+  ],
   "modules": [
     {
-      "id": "foundations",
+      "id": "orientation",
+      "track": "intro",
+      "title": "Ваши первые строки",
+      "description": "Как читать программу, создавать и изменять переменные.",
       "number": 1,
+      "outcome": "Понимать роль компилятора, main, let и mut."
+    },
+    {
+      "id": "values",
+      "track": "intro",
+      "title": "Значения и типы",
+      "description": "Типы, shadowing, логика и константы.",
+      "number": 2,
+      "outcome": "Предсказывать значения и выбирать подходящие типы."
+    },
+    {
+      "id": "functions",
+      "track": "intro",
+      "title": "Функции без загадок",
+      "description": "Объявление, параметры, результат и композиция.",
+      "number": 3,
+      "outcome": "Разбивать вычисление на понятные функции."
+    },
+    {
+      "id": "foundations",
+      "track": "core",
       "title": "Первый контакт",
-      "description": "Функции, типы и решения. Без перегруза."
+      "description": "Функции, типы и решения. Без перегруза.",
+      "number": 4,
+      "outcome": "Закрепить функции, типы и решения. без перегруза"
     },
     {
       "id": "ownership",
-      "number": 2,
+      "track": "core",
       "title": "Кому принадлежат данные",
-      "description": "Ownership и borrowing на маленьких примерах."
+      "description": "Ownership и borrowing на маленьких примерах.",
+      "number": 5,
+      "outcome": "Закрепить ownership и borrowing на маленьких примерах"
     },
     {
       "id": "collections",
-      "number": 3,
+      "track": "core",
       "title": "Данные и ошибки",
-      "description": "Коллекции, Option, Result и итераторы."
+      "description": "Коллекции, Option, Result и итераторы.",
+      "number": 6,
+      "outcome": "Закрепить коллекции, option, result и итераторы"
     },
     {
       "id": "design",
-      "number": 4,
+      "track": "core",
       "title": "Думать как Rust-разработчик",
-      "description": "Структуры, enums, traits и композиция."
+      "description": "Структуры, enums, traits и композиция.",
+      "number": 7,
+      "outcome": "Закрепить структуры, enums, traits и композиция"
+    },
+    {
+      "id": "generic-api",
+      "track": "advanced",
+      "title": "Контракты и обобщения",
+      "description": "Generics, bounds, associated types и dyn Trait.",
+      "number": 8,
+      "outcome": "Строить переиспользуемые типизированные интерфейсы."
+    },
+    {
+      "id": "lifetime-api",
+      "track": "advanced",
+      "title": "Ссылки в публичном API",
+      "description": "Lifetimes, срезы, Cow и структуры со ссылками.",
+      "number": 9,
+      "outcome": "Возвращать заимствованные данные без лишних аллокаций."
+    },
+    {
+      "id": "reliable",
+      "track": "advanced",
+      "title": "Устойчивая логика",
+      "description": "Result, checked arithmetic, closures и type-state.",
+      "number": 10,
+      "outcome": "Обрабатывать ошибки и выражать ограничения типами."
+    },
+    {
+      "id": "concurrency",
+      "track": "advanced",
+      "title": "Несколько потоков",
+      "description": "JoinHandle, Arc, Mutex, каналы и Atomic.",
+      "number": 11,
+      "outcome": "Объяснять передачу данных и синхронизацию потоков."
     }
   ],
   "lessons": [
+    {
+      "id": "intro-rust",
+      "module": "orientation",
+      "track": "intro",
+      "kind": "quiz",
+      "title": "Знакомство с Rust",
+      "minutes": 5,
+      "xp": 20,
+      "summary": "Что делает компилятор и почему ошибки помогают.",
+      "outcome": "Различать компиляцию, выполнение и проверку поведения.",
+      "common_mistake": "Не пытайтесь запомнить ответ: объясните, почему остальные варианты не подходят.",
+      "theory": [
+        {
+          "heading": "От текста к работающей программе",
+          "text": "Rust — компилируемый язык. Мы записываем инструкции в исходном коде; rustc проверяет их и создаёт исполняемую программу. Проверка типов и правил владения происходит до запуска. Но компилятор не доказывает правильность бизнес-логики: для этого нужны тесты. На сайте установка Rust не требуется — код проверяет отдельный сервис.",
+          "example": null
+        }
+      ],
+      "task": "Выберите один ответ. После попытки появится объяснение.",
+      "starter": "",
+      "solution": "",
+      "tests": "",
+      "hints": [
+        "Разделите проверку структуры программы и проверку её смысла."
+      ],
+      "test_labels": [],
+      "readings": [
+        {
+          "title": "Metanit: основы языка",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "The Rust Book",
+          "url": "https://doc.rust-lang.org/book/"
+        }
+      ],
+      "visual": null,
+      "quiz": {
+        "question": "Какая ошибка обычно обнаруживается до запуска программы?",
+        "options": [
+          "Функция возвращает строку, хотя обещает число",
+          "Программа считает неверную скидку, но типы совпадают",
+          "Сервису не хватает места на диске во время работы"
+        ],
+        "correct": 0,
+        "explanation": "Несовпадение объявленного типа результата — ошибка компиляции. Неверная скидка может успешно скомпилироваться, а отсутствие места относится к условиям выполнения."
+      },
+      "prerequisites": []
+    },
+    {
+      "id": "intro-main",
+      "module": "orientation",
+      "track": "intro",
+      "kind": "quiz",
+      "title": "Как читается программа",
+      "minutes": 5,
+      "xp": 20,
+      "summary": "Точка входа, строки и вызов функции.",
+      "outcome": "Читать тело функции последовательно и находить вызовы.",
+      "common_mistake": "Не пытайтесь запомнить ответ: объясните, почему остальные варианты не подходят.",
+      "theory": [
+        {
+          "heading": "Начинаем с main",
+          "text": "fn main() — точка входа обычной исполняемой Rust-программы. Фигурные скобки ограничивают тело функции. Вызов вида print_message() передаёт управление другой функции, затем выполнение main продолжается. println! — макрос для вывода строки, поэтому после имени стоит !. В учебных задачах вместо main часто дана функция: тесты вызывают её сами.",
+          "example": "fn main() {\n    println!(\"Сначала\");\n    announce();\n}\nfn announce() {\n    println!(\"Затем\");\n}"
+        }
+      ],
+      "task": "Выберите один ответ. После попытки появится объяснение.",
+      "starter": "",
+      "solution": "",
+      "tests": "",
+      "hints": [
+        "Проследите именно вызовы, а не порядок определений."
+      ],
+      "test_labels": [],
+      "readings": [
+        {
+          "title": "Metanit: основы языка",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "The Rust Book",
+          "url": "https://doc.rust-lang.org/book/"
+        }
+      ],
+      "visual": null,
+      "quiz": {
+        "question": "В каком порядке появятся строки?",
+        "options": [
+          "Затем, потом Сначала",
+          "Сначала, потом Затем",
+          "Порядок зависит от места определения announce"
+        ],
+        "correct": 1,
+        "explanation": "Выполнение начинается в main. Сначала выполняется первый println!, затем вызывается announce. Положение определения функции в файле не задаёт порядок вызовов."
+      },
+      "prerequisites": [
+        "intro-rust"
+      ]
+    },
+    {
+      "id": "intro-let",
+      "module": "orientation",
+      "track": "intro",
+      "kind": "code",
+      "title": "Переменная: имя для значения",
+      "minutes": 8,
+      "xp": 30,
+      "summary": "Создаём первую переменную через let.",
+      "outcome": "Объявлять и читать переменную.",
+      "common_mistake": "Запись amount == 12 сравнивает значения, а не объявляет переменную.",
+      "theory": [
+        {
+          "heading": "Объявление и использование",
+          "text": "let связывает имя со значением. В let coins = 7; имя coins позволяет повторно использовать число 7. Знак = здесь задаёт начальное значение, а не проверяет равенство. Инструкция заканчивается ;. Мы уже подготовили функцию: пока изменяйте только её тело. Последняя строка без ; отдаёт результат тесту.",
+          "example": "let coins = 7;\nlet bonus = 2;\nlet total = coins + bonus;"
+        },
+        {
+          "heading": "Почему в задаче уже есть функция",
+          "text": "Тесту нужна точка, из которой он получает ответ. Сейчас функция — только готовая оболочка; как написать свою, разберём в третьем модуле.",
+          "example": null
+        }
+      ],
+      "task": "Внутри coins создайте переменную amount со значением 12 и верните её. Внешнюю строку pub fn менять не нужно.",
+      "starter": "pub fn coins() -> i32 {\n    let amount = 0;\n    amount\n}",
+      "solution": "pub fn coins() -> i32 { let amount = 12; amount }",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n use super::*;\n #[test]\n fn case_1() { assert_eq!(coins(),12); }\n}",
+      "hints": [
+        "Замените начальное значение amount.",
+        "Переменная объявляется так: let amount = 12;"
+      ],
+      "test_labels": [
+        "Начальное значение"
+      ],
+      "readings": [
+        {
+          "title": "Metanit: руководство Rust",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "The Rust Book",
+          "url": "https://doc.rust-lang.org/book/"
+        }
+      ],
+      "visual": null,
+      "quiz": null,
+      "prerequisites": [
+        "intro-main"
+      ]
+    },
+    {
+      "id": "intro-mut",
+      "module": "orientation",
+      "track": "intro",
+      "kind": "code",
+      "title": "Когда значение меняется",
+      "minutes": 8,
+      "xp": 30,
+      "summary": "mut разрешает повторное присваивание.",
+      "outcome": "Использовать изменяемое связывание осознанно.",
+      "common_mistake": "Новая строка let points = ... создаёт новое связывание. Это shadowing, а не изменение старого.",
+      "theory": [
+        {
+          "heading": "Неизменяемость по умолчанию",
+          "text": "После let score = 10; нельзя присвоить score новое значение. Напишите let mut score = 10;, если изменение необходимо. += прибавляет число к текущему значению. mut не меняет тип: в числовую переменную всё ещё нельзя записать строку.",
+          "example": "let mut score = 10;\nscore += 5;"
+        },
+        {
+          "heading": "Что говорит ошибка E0384",
+          "text": "Если rustc пишет cannot assign twice to immutable variable, найдите объявление переменной. Решение не всегда mut: иногда правильнее пересчитать значение новым let.",
+          "example": null
+        }
+      ],
+      "task": "Исправьте код: разрешите изменение points и добавьте к ним 3. Итог должен быть 10.",
+      "starter": "pub fn points() -> i32 {\n    let points = 7;\n    points += 3;\n    points\n}",
+      "solution": "pub fn points() -> i32 { let mut points=7; points+=3; points }",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n use super::*;\n #[test]\n fn case_1() { assert_eq!(points(),10); }\n}",
+      "hints": [
+        "Компилятор укажет на присваивание неизменяемой переменной.",
+        "Добавьте mut после let."
+      ],
+      "test_labels": [
+        "Обновление переменной"
+      ],
+      "readings": [
+        {
+          "title": "Metanit: руководство Rust",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "The Rust Book",
+          "url": "https://doc.rust-lang.org/book/"
+        }
+      ],
+      "visual": null,
+      "quiz": null,
+      "prerequisites": [
+        "intro-let"
+      ]
+    },
+    {
+      "id": "intro-types",
+      "module": "values",
+      "track": "intro",
+      "kind": "code",
+      "title": "Тип — договор о данных",
+      "minutes": 8,
+      "xp": 30,
+      "summary": "Числа, bool и явная аннотация.",
+      "outcome": "Читать простые аннотации типов.",
+      "common_mistake": "Знаковый i32 и беззнаковый u32 не взаимозаменяемы автоматически.",
+      "theory": [
+        {
+          "heading": "Аннотация после двоеточия",
+          "text": "В let count: u32 = 4; двоеточие вводит тип. u32 хранит целые числа от 0 до 2³²−1, i32 допускает отрицательные значения, bool — true или false. Rust часто выводит тип из контекста, но параметры функции должны иметь явные типы. Ноль допустим для u32.",
+          "example": "let ready: bool = true;\nlet temperature: i32 = -5;\nlet count: u32 = 0;"
+        },
+        {
+          "heading": "Вывод типа — не отсутствие типа",
+          "text": "Запись let count = 4; тоже типизирована: компилятор выводит тип. В языке нет неявной переменной «любого типа».",
+          "example": null
+        }
+      ],
+      "task": "Создайте переменную minutes типа u32 со значением 60. Верните minutes.",
+      "starter": "pub fn minutes() -> u32 {\n    let minutes: u32 = 0;\n    minutes\n}",
+      "solution": "pub fn minutes() -> u32 { let minutes: u32=60; minutes }",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n use super::*;\n #[test]\n fn case_1() { assert_eq!(minutes(),60u32); }\n}",
+      "hints": [
+        "Сигнатура функции уже задаёт тип результата u32.",
+        "Нужно let minutes: u32 = 60;"
+      ],
+      "test_labels": [
+        "Значение u32"
+      ],
+      "readings": [
+        {
+          "title": "Metanit: руководство Rust",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "The Rust Book",
+          "url": "https://doc.rust-lang.org/book/"
+        }
+      ],
+      "visual": null,
+      "quiz": null,
+      "prerequisites": [
+        "intro-mut"
+      ]
+    },
+    {
+      "id": "intro-shadow",
+      "module": "values",
+      "track": "intro",
+      "kind": "code",
+      "title": "Новое значение, то же имя",
+      "minutes": 8,
+      "xp": 30,
+      "summary": "Shadowing и область видимости.",
+      "outcome": "Различать изменение и новое связывание.",
+      "common_mistake": "Shadowing не требует mut: старое значение не изменяется.",
+      "theory": [
+        {
+          "heading": "Новое let — новое связывание",
+          "text": "let value = value + 1; создаёт новое связывание, которое скрывает прежнее. Оно может даже иметь другой тип. Вложенный блок задаёт собственную область: переменные, созданные внутри, недоступны после его завершения. Значение блока — последнее выражение без ;.",
+          "example": "let text = \"Rust\";\nlet text = text.len(); // теперь usize"
+        },
+        {
+          "heading": "Проверка поведения, а не стиля",
+          "text": "Unit-тест проверит число 12, но не докажет использование let. Поэтому соблюдение учебного приёма нужно проверять чтением своего кода, а не только зелёным результатом.",
+          "example": null
+        }
+      ],
+      "task": "Сначала объявите count = 4. Затем новым let count = count * 3; получите 12 и верните count.",
+      "starter": "pub fn shadowed() -> i32 {\n    let count = 4;\n    // Создайте новое связывание\n    count\n}",
+      "solution": "pub fn shadowed() -> i32 { let count=4; let count=count*3; count }",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n use super::*;\n #[test]\n fn case_1() { assert_eq!(shadowed(),12); }\n}",
+      "hints": [
+        "Старое значение можно использовать справа от =.",
+        "Добавьте let count = count * 3;"
+      ],
+      "test_labels": [
+        "Результат преобразования"
+      ],
+      "readings": [
+        {
+          "title": "Metanit: руководство Rust",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "The Rust Book",
+          "url": "https://doc.rust-lang.org/book/"
+        }
+      ],
+      "visual": null,
+      "quiz": null,
+      "prerequisites": [
+        "intro-types"
+      ]
+    },
+    {
+      "id": "intro-bool",
+      "module": "values",
+      "track": "intro",
+      "kind": "code",
+      "title": "Условия из двух частей",
+      "minutes": 8,
+      "xp": 30,
+      "summary": "Сравнения и логическое И.",
+      "outcome": "Составлять условия из нескольких bool-выражений.",
+      "common_mistake": "Оператор || ошибочно разрешил бы вход при выполнении только одного требования.",
+      "theory": [
+        {
+          "heading": "bool и операторы",
+          "text": "Сравнение >= возвращает bool. && означает «оба условия истинны», || — «хотя бы одно». Операторы короткозамкнутые: второе условие && не вычисляется, если первое false. Для равенства используется ==, а не =.",
+          "example": "let allowed = age >= 18 && has_ticket;"
+        },
+        {
+          "heading": "Тестируйте границу",
+          "text": "Минимальный допустимый возраст важен: >= 16 и > 16 дают разные результаты для 16.",
+          "example": null
+        }
+      ],
+      "task": "Верните true только если age >= 16 и есть билет has_ticket.",
+      "starter": "pub fn can_enter(age: u8, has_ticket: bool) -> bool {\n    false\n}",
+      "solution": "pub fn can_enter(age:u8,has_ticket:bool)->bool{age>=16 && has_ticket}",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n use super::*;\n #[test]\n fn case_1() { assert!(can_enter(16,true)); }\n #[test]\n fn case_2() { assert!(!can_enter(20,false)); }\n #[test]\n fn case_3() { assert!(!can_enter(15,true)); }\n}",
+      "hints": [
+        "Оба требования обязательны, поэтому нужен &&.",
+        "Сравните age с 16 и соедините результат с has_ticket."
+      ],
+      "test_labels": [
+        "Возраст и билет",
+        "Нет билета",
+        "Возраст недостаточен"
+      ],
+      "readings": [
+        {
+          "title": "Metanit: руководство Rust",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "The Rust Book",
+          "url": "https://doc.rust-lang.org/book/"
+        }
+      ],
+      "visual": null,
+      "quiz": null,
+      "prerequisites": [
+        "intro-shadow"
+      ]
+    },
+    {
+      "id": "intro-const",
+      "module": "values",
+      "track": "intro",
+      "kind": "code",
+      "title": "Константы и единицы",
+      "minutes": 8,
+      "xp": 30,
+      "summary": "Явный тип и читаемые имена.",
+      "outcome": "Использовать константу для коэффициента.",
+      "common_mistake": "Обычный let без mut не превращается в const: у них разные правила объявления и вычисления.",
+      "theory": [
+        {
+          "heading": "const",
+          "text": "const задаёт постоянное значение и требует явный тип. Имена констант принято писать SCREAMING_SNAKE_CASE. Значение должно быть допустимым константным выражением, а не результатом произвольного действия во время выполнения. Использование константы делает единицы вычисления очевидными.",
+          "example": "const SECONDS_PER_MINUTE: u32 = 60;"
+        },
+        {
+          "heading": "Не прячьте единицы",
+          "text": "Имя SECONDS_PER_MINUTE поясняет коэффициент лучше, чем число 60 посреди сложной формулы.",
+          "example": null
+        }
+      ],
+      "task": "Объявите SECONDS_PER_MINUTE = 60 и используйте её в to_seconds. minutes находится в диапазоне 0..=1000.",
+      "starter": "const SECONDS_PER_MINUTE: u32 = 0;\npub fn to_seconds(minutes: u32) -> u32 {\n    minutes * SECONDS_PER_MINUTE\n}",
+      "solution": "const SECONDS_PER_MINUTE:u32=60; pub fn to_seconds(minutes:u32)->u32{minutes*SECONDS_PER_MINUTE}",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n use super::*;\n #[test]\n fn case_1() { assert_eq!(to_seconds(1),60); }\n #[test]\n fn case_2() { assert_eq!(to_seconds(0),0); }\n #[test]\n fn case_3() { assert_eq!(to_seconds(12),720); }\n}",
+      "hints": [
+        "Измените значение константы, а не сигнатуру.",
+        "Проверьте, что у const указан тип u32."
+      ],
+      "test_labels": [
+        "Одна минута",
+        "Ноль",
+        "Несколько минут"
+      ],
+      "readings": [
+        {
+          "title": "Metanit: руководство Rust",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "The Rust Book",
+          "url": "https://doc.rust-lang.org/book/"
+        }
+      ],
+      "visual": null,
+      "quiz": null,
+      "prerequisites": [
+        "intro-bool"
+      ]
+    },
+    {
+      "id": "intro-function",
+      "module": "functions",
+      "track": "intro",
+      "kind": "code",
+      "title": "Объявляем функцию",
+      "minutes": 8,
+      "xp": 30,
+      "summary": "Имя, тело и тип результата.",
+      "outcome": "Самостоятельно объявлять простую функцию.",
+      "common_mistake": "Не добавляйте main: тесты вызывают именно base_score.",
+      "theory": [
+        {
+          "heading": "fn + имя + скобки",
+          "text": "fn начинает объявление. После имени следуют скобки параметров, затем необязательный -> Type и тело в {}. Функция с -> i32 должна вернуть число. В этом тренажёре pub позволяет тесту вызвать функцию; полноценные модули и видимость рассмотрим позже.",
+          "example": "pub fn base_score() -> i32 {\n    10\n}"
+        },
+        {
+          "heading": "Объявление не запускает функцию",
+          "text": "Код в теле выполняется только при вызове. Само определение функции не печатает и не вычисляет результат.",
+          "example": null
+        }
+      ],
+      "task": "Напишите функцию base_score без параметров. Она должна возвращать i32 со значением 25.",
+      "starter": "// Объявите здесь pub fn base_score() -> i32\n",
+      "solution": "pub fn base_score()->i32{25}",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n use super::*;\n #[test]\n fn case_1() { assert_eq!(base_score(),25); }\n}",
+      "hints": [
+        "Ориентируйтесь на пример, но измените результат.",
+        "Сигнатура: pub fn base_score() -> i32."
+      ],
+      "test_labels": [
+        "Вызов функции"
+      ],
+      "readings": [
+        {
+          "title": "Metanit: руководство Rust",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "The Rust Book",
+          "url": "https://doc.rust-lang.org/book/"
+        }
+      ],
+      "visual": null,
+      "quiz": null,
+      "prerequisites": [
+        "intro-const"
+      ]
+    },
+    {
+      "id": "intro-arguments",
+      "module": "functions",
+      "track": "intro",
+      "kind": "code",
+      "title": "Передаём аргументы",
+      "minutes": 8,
+      "xp": 30,
+      "summary": "Параметры дают функции входные данные.",
+      "outcome": "Различать параметр и аргумент.",
+      "common_mistake": "Не меняйте порядок и типы аргументов: это контракт с вызывающим кодом.",
+      "theory": [
+        {
+          "heading": "Параметр и аргумент",
+          "text": "В fn triple(value: i32) параметр — имя value в объявлении. При triple(4) аргумент — переданное значение 4. Типы параметров обязательны. Несколько параметров разделяются запятыми, значения передаются по позиции.",
+          "example": "pub fn triple(value: i32) -> i32 {\n    value * 3\n}\n// triple(4) вернёт 12"
+        },
+        {
+          "heading": "Функция подходит многим входам",
+          "text": "Три теста проверяют разные значения, чтобы решение не работало только для одного примера.",
+          "example": null
+        }
+      ],
+      "task": "Напишите add_bonus(points, bonus), возвращающую сумму двух i32. Значения от -1000 до 1000.",
+      "starter": "pub fn add_bonus(points: i32, bonus: i32) -> i32 {\n    0\n}",
+      "solution": "pub fn add_bonus(points:i32,bonus:i32)->i32{points+bonus}",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n use super::*;\n #[test]\n fn case_1() { assert_eq!(add_bonus(10,5),15); }\n #[test]\n fn case_2() { assert_eq!(add_bonus(-3,2),-1); }\n #[test]\n fn case_3() { assert_eq!(add_bonus(0,0),0); }\n}",
+      "hints": [
+        "Используйте оба параметра, а не фиксированный результат.",
+        "Последним выражением может быть points + bonus."
+      ],
+      "test_labels": [
+        "Два аргумента",
+        "Отрицательное значение",
+        "Ноль"
+      ],
+      "readings": [
+        {
+          "title": "Metanit: параметры функции",
+          "url": "https://metanit.com/rust/tutorial/2.11.php"
+        },
+        {
+          "title": "The Rust Book: functions",
+          "url": "https://doc.rust-lang.org/book/ch03-03-how-functions-work.html"
+        }
+      ],
+      "visual": null,
+      "quiz": null,
+      "prerequisites": [
+        "intro-function"
+      ]
+    },
+    {
+      "id": "intro-return",
+      "module": "functions",
+      "track": "intro",
+      "kind": "quiz",
+      "title": "Почему важна точка с запятой",
+      "minutes": 5,
+      "xp": 20,
+      "summary": "Выражение возвращает значение, инструкция — нет.",
+      "outcome": "Различать выражение, инструкцию и возвращаемое значение.",
+      "common_mistake": "Не пытайтесь запомнить ответ: объясните, почему остальные варианты не подходят.",
+      "theory": [
+        {
+          "heading": "Последнее выражение",
+          "text": "Тело функции может вернуть последнее выражение без ;. Если после него поставить ;, значение отбрасывается и блок возвращает (). Альтернатива — явный return value;, который завершает функцию. println! выводит текст, но не заменяет возвращаемое значение.",
+          "example": "fn answer() -> i32 {\n    40 + 2\n}"
+        }
+      ],
+      "task": "Выберите один ответ. После попытки появится объяснение.",
+      "starter": "",
+      "solution": "",
+      "tests": "",
+      "hints": [
+        "Сравните тип выражения и тип результата всего блока."
+      ],
+      "test_labels": [],
+      "readings": [
+        {
+          "title": "Metanit: основы языка",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "The Rust Book",
+          "url": "https://doc.rust-lang.org/book/"
+        }
+      ],
+      "visual": null,
+      "quiz": {
+        "question": "Какое тело подходит для функции с результатом i32?",
+        "options": [
+          "{ 40 + 2; }",
+          "{ println!(\"42\"); }",
+          "{ 40 + 2 }"
+        ],
+        "correct": 2,
+        "explanation": "Последнее выражение 40 + 2 без ; даёт i32. Остальные варианты возвращают (), поэтому не подходят к -> i32. Явный { return 42; } тоже был бы корректен."
+      },
+      "prerequisites": [
+        "intro-arguments"
+      ]
+    },
+    {
+      "id": "intro-compose",
+      "module": "functions",
+      "track": "intro",
+      "kind": "code",
+      "title": "Соединяем функции",
+      "minutes": 8,
+      "xp": 30,
+      "summary": "Маленькая задача из двух понятных частей.",
+      "outcome": "Вызывать вспомогательные функции.",
+      "common_mistake": "double(base + bonus) удвоит и бонус, изменив условие задачи.",
+      "theory": [
+        {
+          "heading": "Вызов внутри вычисления",
+          "text": "Можно передать результат одной функции в другую или использовать его в арифметике. Разбиение полезно, когда каждый шаг имеет отдельный смысл. Сначала Rust вычисляет аргумент, затем выполняет вызов. Скобки помогают явно показать порядок.",
+          "example": "fn double(x: i32) -> i32 { x * 2 }\nlet result = double(3) + 1;"
+        },
+        {
+          "heading": "Что освоено",
+          "text": "Вы уже можете объявлять переменные, менять значение, читать типы и создавать функции. Дальше выбирайте «Основы Rust»: там познакомимся с владением и коллекциями.",
+          "example": null
+        }
+      ],
+      "task": "Готовая double удваивает число. Используйте её в reward: результат должен быть double(base) + bonus. Все входы от -1000 до 1000.",
+      "starter": "fn double(x: i32) -> i32 { x * 2 }\npub fn reward(base: i32, bonus: i32) -> i32 {\n    0\n}",
+      "solution": "fn double(x:i32)->i32{x*2} pub fn reward(base:i32,bonus:i32)->i32{double(base)+bonus}",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n use super::*;\n #[test]\n fn case_1() { assert_eq!(reward(4,3),11); }\n #[test]\n fn case_2() { assert_eq!(reward(2,7),11); }\n #[test]\n fn case_3() { assert_eq!(reward(0,0),0); }\n}",
+      "hints": [
+        "Сначала передайте base в double.",
+        "Бонус прибавляется после удвоения: double(base) + bonus."
+      ],
+      "test_labels": [
+        "Вызов и сложение",
+        "Не удваивать бонус",
+        "Нулевой ввод"
+      ],
+      "readings": [
+        {
+          "title": "Metanit: руководство Rust",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "The Rust Book",
+          "url": "https://doc.rust-lang.org/book/"
+        }
+      ],
+      "visual": null,
+      "quiz": null,
+      "prerequisites": [
+        "intro-return"
+      ]
+    },
     {
       "id": "hello",
       "module": "foundations",
@@ -38,11 +735,6 @@
           "heading": "Функция возвращает значение",
           "text": "fn объявляет функцию, а -> задаёт тип результата. &'static str — ссылка на строковый литерал, который живёт всё время работы программы. Последнее выражение без точки с запятой становится результатом функции. Подробно время жизни изучим позже.",
           "example": "pub fn language() -> &'static str {\n    \"Rust\"\n}"
-        },
-        {
-          "heading": "Как пройти уровень",
-          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
-          "example": null
         }
       ],
       "task": "Верните из greeting точную строку «Привет, Rust!». Не меняйте сигнатуру функции.",
@@ -55,7 +747,24 @@
       ],
       "test_labels": [
         "Точное приветствие"
-      ]
+      ],
+      "track": "core",
+      "kind": "code",
+      "outcome": "Первая функция и первое маленькое достижение.",
+      "common_mistake": "Следите за типом результата и границами входных данных.",
+      "quiz": null,
+      "visual": null,
+      "readings": [
+        {
+          "title": "Metanit: руководство Rust",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "The Rust Book",
+          "url": "https://doc.rust-lang.org/book/"
+        }
+      ],
+      "prerequisites": []
     },
     {
       "id": "arithmetic",
@@ -69,11 +778,6 @@
           "heading": "Числовые типы",
           "text": "i32 — знаковое 32-битное число. Аргументы функции имеют имена и типы. Арифметика работает как обычно, но тип результата должен совпадать с объявленным. Условия задания задают безопасный диапазон без переполнения.",
           "example": "pub fn double(x: i32) -> i32 {\n    x * 2\n}"
-        },
-        {
-          "heading": "Как пройти уровень",
-          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
-          "example": null
         }
       ],
       "task": "Реализуйте sum: сумму a и b. Входные значения находятся в диапазоне от -1000 до 1000.",
@@ -88,6 +792,25 @@
         "Положительные числа",
         "Отрицательные числа",
         "Ноль"
+      ],
+      "track": "core",
+      "kind": "code",
+      "outcome": "Типы и арифметика без магии.",
+      "common_mistake": "Следите за типом результата и границами входных данных.",
+      "quiz": null,
+      "visual": null,
+      "readings": [
+        {
+          "title": "Metanit: руководство Rust",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "The Rust Book",
+          "url": "https://doc.rust-lang.org/book/"
+        }
+      ],
+      "prerequisites": [
+        "hello"
       ]
     },
     {
@@ -102,11 +825,6 @@
           "heading": "Ветвления возвращают значения",
           "text": "Условия if должны иметь тип bool. Ветки if и else могут возвращать значение: тогда их типы должны совпадать. Это позволяет писать компактно и не вводить изменяемую переменную.",
           "example": "pub fn sign(x: i32) -> &'static str {\n    if x >= 0 { \"неотрицательное\" } else { \"отрицательное\" }\n}"
-        },
-        {
-          "heading": "Как пройти уровень",
-          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
-          "example": null
         }
       ],
       "task": "Верните true, если age не меньше 18; иначе false. age — u8.",
@@ -121,6 +839,25 @@
         "Граница 18",
         "Меньше 18",
         "Больше 18"
+      ],
+      "track": "core",
+      "kind": "code",
+      "outcome": "if — это тоже выражение.",
+      "common_mistake": "Следите за типом результата и границами входных данных.",
+      "quiz": null,
+      "visual": null,
+      "readings": [
+        {
+          "title": "Metanit: руководство Rust",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "The Rust Book",
+          "url": "https://doc.rust-lang.org/book/"
+        }
+      ],
+      "prerequisites": [
+        "arithmetic"
       ]
     },
     {
@@ -135,11 +872,6 @@
           "heading": "let mut и циклы",
           "text": "По умолчанию переменные неизменяемы. mut разрешает менять значение. for перебирает диапазон: 1..=n включает обе границы. При n = 0 диапазон 1..=0 для u32 пуст, поэтому сумма останется нулевой.",
           "example": "let mut total = 0;\nfor x in 1..=3 {\n    total += x;\n}"
-        },
-        {
-          "heading": "Как пройти уровень",
-          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
-          "example": null
         }
       ],
       "task": "Верните сумму всех чисел от 1 до n включительно. n находится в диапазоне 0..=1000.",
@@ -154,6 +886,25 @@
         "Сумма до 5",
         "Пустой диапазон",
         "Один элемент"
+      ],
+      "track": "core",
+      "kind": "code",
+      "outcome": "Изменяемые переменные и диапазоны.",
+      "common_mistake": "Следите за типом результата и границами входных данных.",
+      "quiz": null,
+      "visual": null,
+      "readings": [
+        {
+          "title": "Metanit: руководство Rust",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "The Rust Book",
+          "url": "https://doc.rust-lang.org/book/"
+        }
+      ],
+      "prerequisites": [
+        "branches"
       ]
     },
     {
@@ -168,11 +919,6 @@
           "heading": "Ownership и заимствование",
           "text": "У значения String один владелец. Передача String по значению перемещает владение, а &String или &str позволяет читать данные, не забирая их. Принимающий &str код работает и со строковыми литералами, и со String. chars() перебирает Unicode-символы; len() считает байты.",
           "example": "let name = String::from(\"Rust\");\nlet view: &str = &name;\nprintln!(\"{view}\");"
-        },
-        {
-          "heading": "Как пройти уровень",
-          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
-          "example": null
         }
       ],
       "task": "Посчитайте количество Unicode-символов в строке. Для «ёж» результат 2, а не число байт.",
@@ -187,6 +933,25 @@
         "Латиница",
         "Unicode",
         "Пустая строка"
+      ],
+      "track": "core",
+      "kind": "code",
+      "outcome": "Ссылки вместо перемещения.",
+      "common_mistake": "Не путайте число байт и символов. Не возвращайте ссылку на локальные данные.",
+      "quiz": null,
+      "visual": "ownership",
+      "readings": [
+        {
+          "title": "Metanit: руководство Rust",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "Brown University: ownership",
+          "url": "https://rust-book.cs.brown.edu/ch04-01-what-is-ownership.html"
+        }
+      ],
+      "prerequisites": [
+        "loops"
       ]
     },
     {
@@ -201,11 +966,6 @@
           "heading": "Изменяемое заимствование",
           "text": "&mut String разрешает изменить строку без перемещения владения. В один момент времени допустима либо одна изменяемая ссылка, либо несколько неизменяемых ссылок на те же данные. push_str добавляет текст к строке.",
           "example": "let mut text = String::from(\"Rust\");\nlet reference = &mut text;\nreference.push_str(\"!\");"
-        },
-        {
-          "heading": "Как пройти уровень",
-          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
-          "example": null
         }
       ],
       "task": "Добавьте ровно один «!» в конец переданной строки. Функция ничего не возвращает.",
@@ -219,6 +979,25 @@
       "test_labels": [
         "Обычная строка",
         "Пустая строка"
+      ],
+      "track": "core",
+      "kind": "code",
+      "outcome": "Одна изменяемая ссылка — одно место изменения.",
+      "common_mistake": "Не путайте число байт и символов. Не возвращайте ссылку на локальные данные.",
+      "quiz": null,
+      "visual": null,
+      "readings": [
+        {
+          "title": "Metanit: руководство Rust",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "Brown University: ownership",
+          "url": "https://rust-book.cs.brown.edu/ch04-01-what-is-ownership.html"
+        }
+      ],
+      "prerequisites": [
+        "borrow"
       ]
     },
     {
@@ -233,11 +1012,6 @@
           "heading": "String владеет памятью",
           "text": "String — изменяемая строка в куче, которая владеет своими данными. &str — представление строки без владения. format! создаёт новый String, и при возврате владение переходит вызывающему коду. Нельзя вернуть ссылку на локальный String.",
           "example": "pub fn welcome(name: &str) -> String {\n    format!(\"Привет, {name}\")\n}"
-        },
-        {
-          "heading": "Как пройти уровень",
-          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
-          "example": null
         }
       ],
       "task": "Верните новый String: «Привет, ИМЯ!», подставив аргумент name.",
@@ -251,6 +1025,25 @@
       "test_labels": [
         "Имя на кириллице",
         "Имя на латинице"
+      ],
+      "track": "core",
+      "kind": "code",
+      "outcome": "Возвращаем собственные данные.",
+      "common_mistake": "Не путайте число байт и символов. Не возвращайте ссылку на локальные данные.",
+      "quiz": null,
+      "visual": null,
+      "readings": [
+        {
+          "title": "Metanit: руководство Rust",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "Brown University: ownership",
+          "url": "https://rust-book.cs.brown.edu/ch04-01-what-is-ownership.html"
+        }
+      ],
+      "prerequisites": [
+        "mut-borrow"
       ]
     },
     {
@@ -265,11 +1058,6 @@
           "heading": "Срез — вид на последовательность",
           "text": "&[i32] — ссылка на последовательность элементов, а не только на Vec. iter() читает элементы без перемещения. Метод sum() складывает числа, а тип результата определяется сигнатурой функции. Это пример абстракции без лишнего выделения памяти.",
           "example": "pub fn size(values: &[i32]) -> usize {\n    values.len()\n}"
-        },
-        {
-          "heading": "Как пройти уровень",
-          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
-          "example": null
         }
       ],
       "task": "Сложите элементы среза. Пустой срез должен дать 0. Сумма гарантированно помещается в i32.",
@@ -284,6 +1072,25 @@
         "Несколько чисел",
         "Пустой срез",
         "Отрицательные числа"
+      ],
+      "track": "core",
+      "kind": "code",
+      "outcome": "Срезы без копирования.",
+      "common_mistake": "Не путайте число байт и символов. Не возвращайте ссылку на локальные данные.",
+      "quiz": null,
+      "visual": null,
+      "readings": [
+        {
+          "title": "Metanit: руководство Rust",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "Brown University: ownership",
+          "url": "https://rust-book.cs.brown.edu/ch04-01-what-is-ownership.html"
+        }
+      ],
+      "prerequisites": [
+        "owned-value"
       ]
     },
     {
@@ -298,11 +1105,6 @@
           "heading": "Some и None",
           "text": "Option<T> явно описывает наличие или отсутствие значения. first() на срезе возвращает Option<&T>. copied() превращает ссылку на Copy-тип в собственное значение внутри Option, без unwrap и риска паники.",
           "example": "let numbers = [4, 8];\nlet first: Option<i32> = numbers.first().copied();"
-        },
-        {
-          "heading": "Как пройти уровень",
-          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
-          "example": null
         }
       ],
       "task": "Верните первый элемент среза в Some. Если срез пуст, верните None. Не используйте unwrap.",
@@ -317,6 +1119,25 @@
         "Первый элемент",
         "Отсутствие значения",
         "Ноль как значение"
+      ],
+      "track": "core",
+      "kind": "code",
+      "outcome": "Option вместо null.",
+      "common_mistake": "Пустой ввод и ошибка — нормальные случаи, не повод для unwrap.",
+      "quiz": null,
+      "visual": null,
+      "readings": [
+        {
+          "title": "Metanit: руководство Rust",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "The Rust Book",
+          "url": "https://doc.rust-lang.org/book/"
+        }
+      ],
+      "prerequisites": [
+        "slice"
       ]
     },
     {
@@ -331,11 +1152,6 @@
           "heading": "Result<T, E>",
           "text": "Result содержит Ok(T) при успехе и Err(E) при ошибке. parse::<i32>() проверяет строку и возвращает Result. map_err позволяет привести ошибку к собственному понятному типу, не вызывая панику.",
           "example": "let number = \"42\".parse::<i32>();\nlet result = number.map_err(|_| \"не число\");"
-        },
-        {
-          "heading": "Как пройти уровень",
-          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
-          "example": null
         }
       ],
       "task": "Преобразуйте text в i32. При любой ошибке возвращайте Err(\"не число\"). Используйте стандартный parse, без обрезки пробелов.",
@@ -351,6 +1167,25 @@
         "Отрицательное число",
         "Неверный ввод",
         "Переполнение"
+      ],
+      "track": "core",
+      "kind": "code",
+      "outcome": "Явно обрабатываем некорректный ввод.",
+      "common_mistake": "Пустой ввод и ошибка — нормальные случаи, не повод для unwrap.",
+      "quiz": null,
+      "visual": null,
+      "readings": [
+        {
+          "title": "Metanit: руководство Rust",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "The Rust Book",
+          "url": "https://doc.rust-lang.org/book/"
+        }
+      ],
+      "prerequisites": [
+        "option"
       ]
     },
     {
@@ -365,11 +1200,6 @@
           "heading": "Итераторы ленивы",
           "text": "Итератор ничего не делает, пока его не потребляет завершающая операция вроде collect. filter выбирает элементы, map преобразует их. copied() позволяет удобно работать с числами вместо ссылок, сохраняя исходный срез.",
           "example": "let doubled: Vec<i32> = [1, 2, 3]\n    .iter().copied().map(|x| x * 2).collect();"
-        },
-        {
-          "heading": "Как пройти уровень",
-          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
-          "example": null
         }
       ],
       "task": "Верните Vec квадратов только положительных чисел, сохранив порядок. Все входы от -1000 до 1000.",
@@ -384,6 +1214,25 @@
         "Фильтрация и порядок",
         "Пустой ввод",
         "Без положительных"
+      ],
+      "track": "core",
+      "kind": "code",
+      "outcome": "filter → map → collect.",
+      "common_mistake": "Пустой ввод и ошибка — нормальные случаи, не повод для unwrap.",
+      "quiz": null,
+      "visual": null,
+      "readings": [
+        {
+          "title": "Metanit: руководство Rust",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "The Rust Book",
+          "url": "https://doc.rust-lang.org/book/"
+        }
+      ],
+      "prerequisites": [
+        "result"
       ]
     },
     {
@@ -398,11 +1247,6 @@
           "heading": "HashMap и entry",
           "text": "HashMap<K,V> хранит пары ключ-значение. entry(key).or_insert(0) даёт изменяемую ссылку на существующее значение или вставляет начальное. За счёт этого счётчик можно обновить без отдельного поиска. split_whitespace делит строку по пробельным символам.",
           "example": "use std::collections::HashMap;\nlet mut counts = HashMap::new();\n*counts.entry(\"Rust\").or_insert(0) += 1;"
-        },
-        {
-          "heading": "Как пройти уровень",
-          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
-          "example": null
         }
       ],
       "task": "Посчитайте частоту слов с учётом регистра. Возвращайте HashMap<String, usize>. Разделяйте слова через split_whitespace.",
@@ -417,6 +1261,25 @@
         "Повторения",
         "Пустая строка",
         "Учёт регистра"
+      ],
+      "track": "core",
+      "kind": "code",
+      "outcome": "Ассоциативная коллекция и Entry API.",
+      "common_mistake": "Пустой ввод и ошибка — нормальные случаи, не повод для unwrap.",
+      "quiz": null,
+      "visual": null,
+      "readings": [
+        {
+          "title": "Metanit: руководство Rust",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "The Rust Book",
+          "url": "https://doc.rust-lang.org/book/"
+        }
+      ],
+      "prerequisites": [
+        "iterator"
       ]
     },
     {
@@ -431,11 +1294,6 @@
           "heading": "Структуры и методы",
           "text": "struct объединяет данные, impl добавляет методы. self обозначает значение, &self — чтение без передачи владения. Приватные поля скрывают внутреннее устройство, публичные методы дают безопасный интерфейс. Это инкапсуляция без классов.",
           "example": "pub struct User {\n    name: String,\n}\nimpl User {\n    pub fn name(&self) -> &str { &self.name }\n}"
-        },
-        {
-          "heading": "Как пройти уровень",
-          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
-          "example": null
         }
       ],
       "task": "Реализуйте Rectangle::area. Ширина и высота не больше 1000. Не меняйте структуру и new.",
@@ -449,6 +1307,25 @@
       "test_labels": [
         "Площадь",
         "Нулевая сторона"
+      ],
+      "track": "core",
+      "kind": "code",
+      "outcome": "Инкапсуляция через struct и impl.",
+      "common_mistake": "Сохраняйте заданную сигнатуру и моделируйте состояние явно.",
+      "quiz": null,
+      "visual": null,
+      "readings": [
+        {
+          "title": "Metanit: руководство Rust",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "The Rust Book",
+          "url": "https://doc.rust-lang.org/book/"
+        }
+      ],
+      "prerequisites": [
+        "hashmap"
       ]
     },
     {
@@ -463,11 +1340,6 @@
           "heading": "Enum и исчерпывающий match",
           "text": "Enum описывает набор возможных состояний. match требует обработать все варианты: добавили новый вариант — компилятор подскажет, где обновить логику. Вместо нескольких bool-полей, которые могут противоречить друг другу, используйте одно явное состояние.",
           "example": "enum Door { Open, Closed }\nfn open(door: Door) -> bool {\n    match door { Door::Open => true, Door::Closed => false }\n}"
-        },
-        {
-          "heading": "Как пройти уровень",
-          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
-          "example": null
         }
       ],
       "task": "Верните названия состояний: Draft → «черновик», Running → «проверка», Passed → «готово».",
@@ -482,6 +1354,25 @@
         "Draft",
         "Running",
         "Passed"
+      ],
+      "track": "core",
+      "kind": "code",
+      "outcome": "Невозможные состояния не представимы.",
+      "common_mistake": "Сохраняйте заданную сигнатуру и моделируйте состояние явно.",
+      "quiz": null,
+      "visual": null,
+      "readings": [
+        {
+          "title": "Metanit: руководство Rust",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "The Rust Book",
+          "url": "https://doc.rust-lang.org/book/"
+        }
+      ],
+      "prerequisites": [
+        "struct"
       ]
     },
     {
@@ -496,11 +1387,6 @@
           "heading": "Trait задаёт поведение",
           "text": "Trait похож на интерфейс: описывает возможности типа, а не его поля. impl Trait for Type связывает тип и контракт. Код, принимающий &impl Trait, работает с любым реализующим его типом: это статический полиморфизм без наследования.",
           "example": "pub trait Named { fn name(&self) -> &str; }\npub fn greet(value: &impl Named) -> String {\n    format!(\"Привет, {}\", value.name())\n}"
-        },
-        {
-          "heading": "Как пройти уровень",
-          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
-          "example": null
         }
       ],
       "task": "Реализуйте Score для Quiz: метод points возвращает correct * 10. correct не больше 1000.",
@@ -515,6 +1401,25 @@
         "Баллы",
         "Вызов через trait",
         "Ноль"
+      ],
+      "track": "core",
+      "kind": "code",
+      "outcome": "Полиморфизм через traits.",
+      "common_mistake": "Сохраняйте заданную сигнатуру и моделируйте состояние явно.",
+      "quiz": null,
+      "visual": null,
+      "readings": [
+        {
+          "title": "Metanit: руководство Rust",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "The Rust Book",
+          "url": "https://doc.rust-lang.org/book/"
+        }
+      ],
+      "prerequisites": [
+        "enum"
       ]
     },
     {
@@ -529,11 +1434,6 @@
           "heading": "Композиция вместо наследования",
           "text": "Композиция соединяет небольшие типы и функции. В Rust удобно явно представить успешный результат и ошибку через Result, а правила — через простые функции и traits. В этом задании используем struct, ссылки, Option и Result вместе.",
           "example": "pub struct Check { pub passed: bool }\nfn describe(check: &Check) -> &'static str {\n    if check.passed { \"готово\" } else { \"повторить\" }\n}"
-        },
-        {
-          "heading": "Как пройти уровень",
-          "text": "Прочитайте условие, измените функцию в редакторе и нажмите «Проверить код». Компилятор проверит типы, а тесты — поведение. Ошибка не отнимает опыт. Подсказки открываются постепенно.",
-          "example": null
         }
       ],
       "task": "Реализуйте average(scores): Err(\"пусто\") для пустого среза, Err(\"балл вне диапазона\") если хотя бы один балл больше 100, иначе Ok целочисленного среднего. Ограничение: не больше 1000 элементов. Сначала проверяйте пустой ввод.",
@@ -549,34 +1449,938 @@
         "Среднее",
         "Недопустимый балл",
         "Округление вниз"
+      ],
+      "track": "core",
+      "kind": "code",
+      "outcome": "Собираем знания в проверку решения.",
+      "common_mistake": "Сохраняйте заданную сигнатуру и моделируйте состояние явно.",
+      "quiz": null,
+      "visual": null,
+      "readings": [
+        {
+          "title": "Metanit: руководство Rust",
+          "url": "https://metanit.com/rust/tutorial/"
+        },
+        {
+          "title": "The Rust Book",
+          "url": "https://doc.rust-lang.org/book/"
+        }
+      ],
+      "prerequisites": [
+        "trait"
+      ]
+    },
+    {
+      "id": "adv-min",
+      "module": "generic-api",
+      "track": "advanced",
+      "kind": "code",
+      "title": "Одна функция для разных типов",
+      "minutes": 12,
+      "xp": 75,
+      "summary": "Generics и ограничения Ord + Copy.",
+      "outcome": "Писать функцию с ограничением типа.",
+      "common_mistake": "Generics — не динамический «любой тип». Bound проверяется при компиляции.",
+      "theory": [
+        {
+          "heading": "Поведение задаётся bound",
+          "text": "T обозначает тип, который выбирается при вызове. Ограничение Ord разрешает сравнение, а Copy — копирование значения. Это не обещание, что любой тип поддерживает эти операции. Контракт должен содержать только необходимые возможности.",
+          "example": "fn same<T: Copy>(value: T) -> T { value }"
+        },
+        {
+          "heading": "Почему здесь Copy",
+          "text": "В этом упражнении bound показателен; для выбора между двумя уже принадлежащими функции значениями Copy не обязательно. Минимальный API мог бы требовать только Ord.",
+          "example": null
+        }
+      ],
+      "task": "Реализуйте minimum<T: Ord + Copy>(a, b): верните меньшее значение; при равенстве верните a.",
+      "starter": "pub fn minimum<T: Ord + Copy>(a: T, b: T) -> T {\n    a\n}",
+      "solution": "pub fn minimum<T:Ord+Copy>(a:T,b:T)->T{if a<=b{a}else{b}}",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n use super::*;\n #[test]\n fn case_1() { assert_eq!(minimum(9i32,-2),-2); }\n #[test]\n fn case_2() { assert_eq!(minimum('z','a'),'a'); }\n #[test]\n fn case_3() { assert_eq!(minimum(4u32,4),4); }\n}",
+      "hints": [
+        "Ограничение Ord даёт сравнение <=.",
+        "Выберите a или b с помощью if."
+      ],
+      "test_labels": [
+        "i32",
+        "char",
+        "Равенство"
+      ],
+      "readings": [
+        {
+          "title": "Stanford CS110L: темы курса",
+          "url": "https://web.stanford.edu/class/cs110l/"
+        },
+        {
+          "title": "The Rust Book: generic types",
+          "url": "https://doc.rust-lang.org/book/ch10-00-generics.html"
+        },
+        {
+          "title": "Metanit: ООП и generics",
+          "url": "https://metanit.com/rust/tutorial/"
+        }
+      ],
+      "visual": null,
+      "quiz": null,
+      "prerequisites": []
+    },
+    {
+      "id": "adv-clone",
+      "module": "generic-api",
+      "track": "advanced",
+      "kind": "code",
+      "title": "Обобщённое клонирование",
+      "minutes": 8,
+      "xp": 75,
+      "summary": "Возвращаем собственный элемент из среза.",
+      "outcome": "Выбирать владение результатом и нужный bound.",
+      "common_mistake": "Не требуйте Copy, иначе String перестанет подходить.",
+      "theory": [
+        {
+          "heading": "Clone и Copy различаются",
+          "text": "Clone — явное создание копии, которое может выделять память; Copy — неявное копирование простых значений. String реализует Clone, но не Copy. Функция, читающая &[T], не может переместить его элемент из чужого среза: нужно вернуть ссылку или clone.",
+          "example": "fn duplicate<T: Clone>(value: &T) -> T { value.clone() }"
+        },
+        {
+          "heading": "Стоимость API",
+          "text": "Если вызывающему достаточно ссылки, Option<&T> дешевле. Этот контракт специально требует собственный T — решение должно уважать его.",
+          "example": null
+        }
+      ],
+      "task": "Верните первый элемент среза как Option<T>, клонируя его. Пустой срез даёт None.",
+      "starter": "pub fn first_owned<T: Clone>(values: &[T]) -> Option<T> {\n    None\n}",
+      "solution": "pub fn first_owned<T:Clone>(values:&[T])->Option<T>{values.first().cloned()}",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n use super::*;\n #[test]\n fn case_1() { let a=vec![String::from(\"Rust\")]; assert_eq!(first_owned(&a),Some(String::from(\"Rust\"))); assert_eq!(a[0],\"Rust\"); }\n #[test]\n fn case_2() { assert_eq!(first_owned(&[7i32,8]),Some(7)); }\n #[test]\n fn case_3() { assert_eq!(first_owned::<String>(&[]),None); }\n}",
+      "hints": [
+        "first() даёт Option<&T>.",
+        "Метод cloned() использует Clone внутри Option."
+      ],
+      "test_labels": [
+        "String остаётся у владельца",
+        "Число",
+        "Пустой срез"
+      ],
+      "readings": [
+        {
+          "title": "Stanford CS110L: темы курса",
+          "url": "https://web.stanford.edu/class/cs110l/"
+        },
+        {
+          "title": "The Rust Book: generic types",
+          "url": "https://doc.rust-lang.org/book/ch10-00-generics.html"
+        },
+        {
+          "title": "Metanit: ООП и generics",
+          "url": "https://metanit.com/rust/tutorial/"
+        }
+      ],
+      "visual": null,
+      "quiz": null,
+      "prerequisites": [
+        "adv-min"
+      ]
+    },
+    {
+      "id": "adv-associated",
+      "module": "generic-api",
+      "track": "advanced",
+      "kind": "code",
+      "title": "Ассоциированный тип",
+      "minutes": 8,
+      "xp": 75,
+      "summary": "Trait с собственным типом результата.",
+      "outcome": "Реализовывать trait с associated type.",
+      "common_mistake": "Не добавляйте отдельный похожий inherent-метод вместо реализации trait.",
+      "theory": [
+        {
+          "heading": "Один контракт — разные выходы",
+          "text": "type Item внутри trait задаёт тип, который выбирает реализация. Пользователь trait может писать Self::Item вместо фиксированного i32. Это удобно для источников данных и итераторов, когда тип результата связан с конкретной реализацией.",
+          "example": "pub trait Source {\n    type Item;\n    fn read(&self) -> Self::Item;\n}"
+        },
+        {
+          "heading": "Сравните с generic trait",
+          "text": "Associated type связывает результат с реализацией. Trait<T> может разрешать несколько реализаций для разных T; это иной дизайн контракта.",
+          "example": null
+        }
+      ],
+      "task": "Реализуйте Source для IntSource: Item = i32, read возвращает value.",
+      "starter": "pub trait Source { type Item; fn read(&self) -> Self::Item; }\npub struct IntSource { pub value: i32 }\n// Добавьте impl Source for IntSource\n",
+      "solution": "pub trait Source{type Item;fn read(&self)->Self::Item;} pub struct IntSource{pub value:i32} impl Source for IntSource{type Item=i32;fn read(&self)->i32{self.value}}",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n use super::*;\n #[test]\n fn case_1() { let s=IntSource{value:42}; assert_eq!(Source::read(&s),42); }\n #[test]\n fn case_2() { assert_eq!(IntSource{value:-8}.read(),-8); }\n}",
+      "hints": [
+        "В impl должны быть type Item = i32; и метод read.",
+        "Метод может вернуть self.value."
+      ],
+      "test_labels": [
+        "Контракт Source",
+        "Отрицательное значение"
+      ],
+      "readings": [
+        {
+          "title": "Stanford CS110L: темы курса",
+          "url": "https://web.stanford.edu/class/cs110l/"
+        },
+        {
+          "title": "The Rust Book: generic types",
+          "url": "https://doc.rust-lang.org/book/ch10-00-generics.html"
+        },
+        {
+          "title": "Metanit: ООП и generics",
+          "url": "https://metanit.com/rust/tutorial/"
+        }
+      ],
+      "visual": null,
+      "quiz": null,
+      "prerequisites": [
+        "adv-clone"
+      ]
+    },
+    {
+      "id": "adv-dynamic",
+      "module": "generic-api",
+      "track": "advanced",
+      "kind": "code",
+      "title": "Полиморфизм во время выполнения",
+      "minutes": 15,
+      "xp": 75,
+      "summary": "dyn Trait и неоднородные операции.",
+      "outcome": "Использовать объект trait в композиции поведения.",
+      "common_mistake": "Не складывайте результаты независимых вызовов: условие требует конвейер.",
+      "theory": [
+        {
+          "heading": "Trait object",
+          "text": "&dyn Operation ссылается на значение с реализацией контракта; конкретный тип скрыт. Вызов метода использует динамическую диспетчеризацию. Trait должен быть dyn-compatible: например, такой метод принимает &self и возвращает фиксированный i32.",
+          "example": "pub trait Operation { fn apply(&self, x: i32) -> i32; }"
+        },
+        {
+          "heading": "Когда выбрать static dispatch",
+          "text": "Для заранее известного типа часто подходит generic функция. dyn нужен, когда набор реализаций выбирается во время выполнения или хранится неоднородно.",
+          "example": null
+        }
+      ],
+      "task": "apply_all получает срез Box<dyn Operation>. Примените операции к value по порядку и верните результат. Каждый промежуточный результат помещается в i32.",
+      "starter": "pub trait Operation { fn apply(&self, x: i32) -> i32; }\npub fn apply_all(ops: &[Box<dyn Operation>], value: i32) -> i32 {\n    value\n}",
+      "solution": "pub trait Operation{fn apply(&self,x:i32)->i32;} pub fn apply_all(ops:&[Box<dyn Operation>],mut value:i32)->i32{for op in ops{value=op.apply(value);}value}",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n use super::*;\n #[test]\n fn case_1() { struct Plus; impl Operation for Plus{fn apply(&self,x:i32)->i32{x+2}} struct Twice; impl Operation for Twice{fn apply(&self,x:i32)->i32{x*2}} let ops:Vec<Box<dyn Operation>>=vec![Box::new(Plus),Box::new(Twice)]; assert_eq!(apply_all(&ops,3),10); }\n #[test]\n fn case_2() { assert_eq!(apply_all(&[],7),7); }\n}",
+      "hints": [
+        "Заведите изменяемый результат и пройдите по ops.",
+        "Каждая операция получает результат предыдущей."
+      ],
+      "test_labels": [
+        "Порядок операций",
+        "Пустой конвейер"
+      ],
+      "readings": [
+        {
+          "title": "Stanford CS110L: темы курса",
+          "url": "https://web.stanford.edu/class/cs110l/"
+        },
+        {
+          "title": "The Rust Book: generic types",
+          "url": "https://doc.rust-lang.org/book/ch10-00-generics.html"
+        },
+        {
+          "title": "Metanit: ООП и generics",
+          "url": "https://metanit.com/rust/tutorial/"
+        }
+      ],
+      "visual": null,
+      "quiz": null,
+      "prerequisites": [
+        "adv-associated"
+      ]
+    },
+    {
+      "id": "adv-longest",
+      "module": "lifetime-api",
+      "track": "advanced",
+      "kind": "code",
+      "title": "Жизнь возвращаемой ссылки",
+      "minutes": 12,
+      "xp": 75,
+      "summary": "Аннотация связывает входы с результатом.",
+      "outcome": "Объяснять связь lifetimes входа и результата.",
+      "common_mistake": "Возврат &format!(...) дал бы ссылку на временное значение.",
+      "theory": [
+        {
+          "heading": "Lifetimes не продлевают жизнь",
+          "text": "В longest<'a>(a: &'a str, b: &'a str) -> &'a str результат заимствован из одного из входов. Аннотация не создаёт память и не продлевает существование строки: вызывающий код обязан соблюдать связь. Здесь общий lifetime ограничивает время использования результата.",
+          "example": "fn identity<'a>(s: &'a str) -> &'a str { s }"
+        },
+        {
+          "heading": "Когда аннотация не нужна",
+          "text": "Для identity с единственной входной ссылкой действует elision: компилятор выводит связь. Для двух входных ссылок такой выбор нельзя угадать.",
+          "example": null
+        }
+      ],
+      "task": "Верните строку с большим количеством Unicode-символов. При равенстве верните a, в том числе для двух пустых строк.",
+      "starter": "pub fn longest<'a>(a: &'a str, b: &'a str) -> &'a str {\n    a\n}",
+      "solution": "pub fn longest<'a>(a:&'a str,b:&'a str)->&'a str{if a.chars().count()>=b.chars().count(){a}else{b}}",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n use super::*;\n #[test]\n fn case_1() { assert_eq!(longest(\"a\",\"rust\"),\"rust\"); }\n #[test]\n fn case_2() { assert_eq!(longest(\"ёж\",\"ab\"),\"ёж\"); }\n #[test]\n fn case_3() { assert_eq!(longest(\"\",\"\"),\"\"); }\n}",
+      "hints": [
+        "Не используйте len(): здесь считаются символы.",
+        "Сравните chars().count() обеих строк; >= сохраняет a при равенстве."
+      ],
+      "test_labels": [
+        "Выбор второй строки",
+        "Unicode и равенство",
+        "Пустые строки"
+      ],
+      "readings": [
+        {
+          "title": "Brown University: ownership",
+          "url": "https://rust-book.cs.brown.edu/ch04-01-what-is-ownership.html"
+        },
+        {
+          "title": "The Rust Book: lifetimes",
+          "url": "https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html"
+        },
+        {
+          "title": "Metanit: ссылки и время жизни",
+          "url": "https://metanit.com/rust/tutorial/"
+        }
+      ],
+      "visual": null,
+      "quiz": null,
+      "prerequisites": [
+        "adv-dynamic"
+      ]
+    },
+    {
+      "id": "adv-split",
+      "module": "lifetime-api",
+      "track": "advanced",
+      "kind": "code",
+      "title": "Две ссылки на одну строку",
+      "minutes": 8,
+      "xp": 75,
+      "summary": "Разделение без выделения памяти.",
+      "outcome": "Создавать API с заимствованными срезами.",
+      "common_mistake": "split() + collect() выделяет память и усложняет API без необходимости.",
+      "theory": [
+        {
+          "heading": "Заимствованные части",
+          "text": "split_once возвращает части строки вокруг первого разделителя. Результат содержит ссылки на исходные данные, поэтому строка должна жить достаточно долго. Option явно представляет отсутствие разделителя. Срезы String всегда должны совпадать с границами UTF-8; метод строки берёт это на себя.",
+          "example": "let pair = \"name:Rust\".split_once(':');"
+        },
+        {
+          "heading": "Почему тип обходится без явного lifetime",
+          "text": "Все выходные ссылки происходят из единственной входной ссылки, поэтому работает lifetime elision.",
+          "example": null
+        }
+      ],
+      "task": "Верните Some((ключ, значение)) при наличии первого символа :; иначе None. Пустые ключ и значение допустимы.",
+      "starter": "pub fn split_pair(line: &str) -> Option<(&str, &str)> {\n    None\n}",
+      "solution": "pub fn split_pair(line:&str)->Option<(&str,&str)>{line.split_once(':')}",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n use super::*;\n #[test]\n fn case_1() { assert_eq!(split_pair(\"name:Rust\"),Some((\"name\",\"Rust\"))); }\n #[test]\n fn case_2() { assert_eq!(split_pair(\"a:b:c\"),Some((\"a\",\"b:c\"))); }\n #[test]\n fn case_3() { assert_eq!(split_pair(\"rust\"),None); }\n #[test]\n fn case_4() { assert_eq!(split_pair(\":ёж\"),Some((\"\",\"ёж\"))); }\n}",
+      "hints": [
+        "Стандартный метод split_once уже возвращает правильные ссылки.",
+        "Передайте ему символ ':'."
+      ],
+      "test_labels": [
+        "Обычная пара",
+        "Первый разделитель",
+        "Нет разделителя",
+        "Пустой ключ"
+      ],
+      "readings": [
+        {
+          "title": "Brown University: ownership",
+          "url": "https://rust-book.cs.brown.edu/ch04-01-what-is-ownership.html"
+        },
+        {
+          "title": "The Rust Book: lifetimes",
+          "url": "https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html"
+        },
+        {
+          "title": "Metanit: ссылки и время жизни",
+          "url": "https://metanit.com/rust/tutorial/"
+        }
+      ],
+      "visual": null,
+      "quiz": null,
+      "prerequisites": [
+        "adv-longest"
+      ]
+    },
+    {
+      "id": "adv-cow",
+      "module": "lifetime-api",
+      "track": "advanced",
+      "kind": "code",
+      "title": "Не копировать без причины",
+      "minutes": 12,
+      "xp": 75,
+      "summary": "Cow: borrowed или owned.",
+      "outcome": "Выбирать borrowed/owned по потребности.",
+      "common_mistake": "Owned во всех случаях даст правильный текст, но нарушит условие отсутствия лишней копии.",
+      "theory": [
+        {
+          "heading": "Copy-on-write на уровне контракта",
+          "text": "Cow<'a,str> может хранить Borrowed(&'a str) либо Owned(String). Если преобразование не требуется, можно вернуть исходный срез без аллокации. Если строку нужно изменить, создаётся собственная копия. Cow — не обещание автоматической потокобезопасности.",
+          "example": "use std::borrow::Cow;\nlet unchanged = Cow::Borrowed(\"Rust\");"
+        },
+        {
+          "heading": "Проверяем и значение, и контракт",
+          "text": "В этом уроке тесты проверяют вариант Cow, а не только результирующую строку.",
+          "example": null
+        }
+      ],
+      "task": "Замените каждый символ табуляции \t одним пробелом. Если табуляций нет, верните Cow::Borrowed; иначе Cow::Owned.",
+      "starter": "use std::borrow::Cow;\npub fn normalize_tabs(text: &str) -> Cow<'_, str> {\n    Cow::Borrowed(text)\n}",
+      "solution": "use std::borrow::Cow; pub fn normalize_tabs(text:&str)->Cow<'_,str>{if text.contains('\\t'){Cow::Owned(text.replace('\\t',\" \"))}else{Cow::Borrowed(text)}}",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n use super::*;\n #[test]\n fn case_1() { assert!(matches!(normalize_tabs(\"Rust\"),Cow::Borrowed(_))); }\n #[test]\n fn case_2() { let v=normalize_tabs(\"a\tb\"); assert!(matches!(v,Cow::Owned(_))); assert_eq!(v,\"a b\"); }\n #[test]\n fn case_3() { assert_eq!(normalize_tabs(\"\"),\"\"); }\n}",
+      "hints": [
+        "contains проверит необходимость преобразования.",
+        "Для изменяемой ветки подходит text.replace('\t', \" \")."
+      ],
+      "test_labels": [
+        "Borrowed без изменения",
+        "Owned при замене",
+        "Пустая строка"
+      ],
+      "readings": [
+        {
+          "title": "Brown University: ownership",
+          "url": "https://rust-book.cs.brown.edu/ch04-01-what-is-ownership.html"
+        },
+        {
+          "title": "The Rust Book: lifetimes",
+          "url": "https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html"
+        },
+        {
+          "title": "Metanit: ссылки и время жизни",
+          "url": "https://metanit.com/rust/tutorial/"
+        }
+      ],
+      "visual": null,
+      "quiz": null,
+      "prerequisites": [
+        "adv-split"
+      ]
+    },
+    {
+      "id": "adv-view",
+      "module": "lifetime-api",
+      "track": "advanced",
+      "kind": "code",
+      "title": "Структура, которая заимствует",
+      "minutes": 8,
+      "xp": 75,
+      "summary": "Lifetime в поле и impl.",
+      "outcome": "Добавлять lifetime к структуре со ссылкой.",
+      "common_mistake": "Не возвращайте ссылку на String, созданный внутри метода.",
+      "theory": [
+        {
+          "heading": "Ссылка не становится владельцем",
+          "text": "TextView<'a> хранит &'a str, поэтому не может пережить строку, на которую ссылается. Метод first_word возвращает срез из этой строки. split_whitespace учитывает пробельные символы, а не только обычный пробел.",
+          "example": "pub struct TextView<'a> { pub text: &'a str }"
+        },
+        {
+          "heading": "Владеть или заимствовать",
+          "text": "View удобен для краткого чтения. Если объект должен храниться независимо от исходника, выберите String вместо &str.",
+          "example": null
+        }
+      ],
+      "task": "Добавьте метод first_word(&self) -> &str. Возвращайте первое слово или \"\" для пустого/пробельного текста.",
+      "starter": "pub struct TextView<'a> { pub text: &'a str }\nimpl<'a> TextView<'a> {\n    pub fn first_word(&self) -> &str {\n        \"\"\n    }\n}",
+      "solution": "pub struct TextView<'a>{pub text:&'a str} impl<'a> TextView<'a>{pub fn first_word(&self)->&str{self.text.split_whitespace().next().unwrap_or(\"\")}}",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n use super::*;\n #[test]\n fn case_1() { assert_eq!(TextView{text:\"  hello rust\"}.first_word(),\"hello\"); }\n #[test]\n fn case_2() { assert_eq!(TextView{text:\"ёж\tдом\"}.first_word(),\"ёж\"); }\n #[test]\n fn case_3() { assert_eq!(TextView{text:\"  \"}.first_word(),\"\"); }\n}",
+      "hints": [
+        "split_whitespace().next() вернёт Option<&str>.",
+        "unwrap_or(\"\") безопасно задаёт результат при None."
+      ],
+      "test_labels": [
+        "Первое слово",
+        "Табуляция",
+        "Пустой текст"
+      ],
+      "readings": [
+        {
+          "title": "Brown University: ownership",
+          "url": "https://rust-book.cs.brown.edu/ch04-01-what-is-ownership.html"
+        },
+        {
+          "title": "The Rust Book: lifetimes",
+          "url": "https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html"
+        },
+        {
+          "title": "Metanit: ссылки и время жизни",
+          "url": "https://metanit.com/rust/tutorial/"
+        }
+      ],
+      "visual": null,
+      "quiz": null,
+      "prerequisites": [
+        "adv-cow"
+      ]
+    },
+    {
+      "id": "adv-positive",
+      "module": "reliable",
+      "track": "advanced",
+      "kind": "code",
+      "title": "Ошибка с понятным контрактом",
+      "minutes": 8,
+      "xp": 75,
+      "summary": "Разделяем parse error и ошибку диапазона.",
+      "outcome": "Разделять техническую и предметную ошибку.",
+      "common_mistake": "unwrap превращает ожидаемую ошибку ввода в панику.",
+      "theory": [
+        {
+          "heading": "Result + оператор ?",
+          "text": "? возвращает ошибку из текущей функции, если выражение дало Err, и извлекает значение из Ok. map_err переводит чужую ошибку в собственный контракт. После успешного разбора можно отдельно проверять ограничения предметной области.",
+          "example": "let value = text.parse::<u32>().map_err(|_| \"формат\")?;"
+        },
+        {
+          "heading": "Стабильность сообщений",
+          "text": "Точный текст здесь часть учебного контракта. В реальном API лучше использовать типизированный error enum и отдельно отображать пользовательское сообщение.",
+          "example": null
+        }
+      ],
+      "task": "Верните число > 0. Ошибка parse, включая отрицательное число и переполнение u32, даёт Err(\"формат\"). Ноль даёт Err(\"ноль\"). Пробелы не обрезайте.",
+      "starter": "pub fn positive_count(text: &str) -> Result<u32, &'static str> {\n    Err(\"формат\")\n}",
+      "solution": "pub fn positive_count(text:&str)->Result<u32,&'static str>{let n=text.parse::<u32>().map_err(|_|\"формат\")?;if n==0{Err(\"ноль\")}else{Ok(n)}}",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n use super::*;\n #[test]\n fn case_1() { assert_eq!(positive_count(\"12\"),Ok(12)); }\n #[test]\n fn case_2() { assert_eq!(positive_count(\"0\"),Err(\"ноль\")); }\n #[test]\n fn case_3() { assert_eq!(positive_count(\"-1\"),Err(\"формат\")); assert_eq!(positive_count(\"abc\"),Err(\"формат\")); }\n #[test]\n fn case_4() { assert_eq!(positive_count(\"4294967296\"),Err(\"формат\")); }\n}",
+      "hints": [
+        "Сначала преобразуйте parse error через map_err.",
+        "Затем проверьте n == 0."
+      ],
+      "test_labels": [
+        "Корректный ввод",
+        "Ноль",
+        "Ошибочный формат",
+        "Переполнение"
+      ],
+      "readings": [
+        {
+          "title": "Stanford CS110L: error handling",
+          "url": "https://web.stanford.edu/class/cs110l/"
+        },
+        {
+          "title": "The Rust Book: recoverable errors",
+          "url": "https://doc.rust-lang.org/book/ch09-02-recoverable-errors-with-result.html"
+        },
+        {
+          "title": "Metanit: обработка ошибок",
+          "url": "https://metanit.com/rust/tutorial/"
+        }
+      ],
+      "visual": null,
+      "quiz": null,
+      "prerequisites": [
+        "adv-view"
+      ]
+    },
+    {
+      "id": "adv-checked",
+      "module": "reliable",
+      "track": "advanced",
+      "kind": "code",
+      "title": "Переполнение — не сюрприз",
+      "minutes": 15,
+      "xp": 75,
+      "summary": "checked_add и последовательность ошибок.",
+      "outcome": "Проверять переполнение без паники.",
+      "common_mistake": "Обычный + может вести себя по-разному в debug/release при overflow; контракт должен быть явным.",
+      "theory": [
+        {
+          "heading": "Безопасная арифметика",
+          "text": "checked_add возвращает Option вместо переполнения. Для считывания нескольких чисел используйте split_whitespace и parse. Если следующий токен неверен, возвращайте ошибку разбора; если корректное число переполняет текущую сумму — ошибку суммы. Ошибки проверяются по порядку ввода.",
+          "example": "let next = total.checked_add(value).ok_or(\"переполнение\")?;"
+        },
+        {
+          "heading": "Отрицательные числа",
+          "text": "checked_add учитывает обе границы i32, не только верхнюю. Дополните своё рассуждение примером -2147483648 и -1.",
+          "example": null
+        }
+      ],
+      "task": "Сложите i32 из строки. Пустой ввод даёт Ok(0), неверный токен — Err(\"формат\"), переполнение суммы — Err(\"переполнение\").",
+      "starter": "pub fn checked_total(text: &str) -> Result<i32, &'static str> {\n    Ok(0)\n}",
+      "solution": "pub fn checked_total(text:&str)->Result<i32,&'static str>{let mut total=0i32;for token in text.split_whitespace(){let value=token.parse::<i32>().map_err(|_|\"формат\")?;total=total.checked_add(value).ok_or(\"переполнение\")?;}Ok(total)}",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n use super::*;\n #[test]\n fn case_1() { assert_eq!(checked_total(\"3 -1  4\"),Ok(6)); }\n #[test]\n fn case_2() { assert_eq!(checked_total(\"\"),Ok(0)); }\n #[test]\n fn case_3() { assert_eq!(checked_total(\"3 x\"),Err(\"формат\")); }\n #[test]\n fn case_4() { assert_eq!(checked_total(\"2147483647 1\"),Err(\"переполнение\")); }\n}",
+      "hints": [
+        "Нужен аккумулятор с явным типом i32.",
+        "Используйте checked_add(value).ok_or(\"переполнение\")?."
+      ],
+      "test_labels": [
+        "Числа и пробелы",
+        "Пустой ввод",
+        "Неверный токен",
+        "Переполнение суммы"
+      ],
+      "readings": [
+        {
+          "title": "Stanford CS110L: error handling",
+          "url": "https://web.stanford.edu/class/cs110l/"
+        },
+        {
+          "title": "The Rust Book: recoverable errors",
+          "url": "https://doc.rust-lang.org/book/ch09-02-recoverable-errors-with-result.html"
+        },
+        {
+          "title": "Metanit: обработка ошибок",
+          "url": "https://metanit.com/rust/tutorial/"
+        }
+      ],
+      "visual": null,
+      "quiz": null,
+      "prerequisites": [
+        "adv-positive"
+      ]
+    },
+    {
+      "id": "adv-fnmut",
+      "module": "reliable",
+      "track": "advanced",
+      "kind": "code",
+      "title": "Функция принимает поведение",
+      "minutes": 12,
+      "xp": 75,
+      "summary": "Замыкание с изменяемым состоянием.",
+      "outcome": "Выбирать правильный trait замыкания.",
+      "common_mistake": "f(f(value)) может потребовать два одновременных mut-заимствования замыкания. Два отдельных шага проще и надёжнее.",
+      "theory": [
+        {
+          "heading": "FnMut",
+          "text": "FnMut позволяет замыканию менять захваченные переменные и вызываться несколько раз. FnOnce может потребить захват, поэтому не подходит к двум произвольным вызовам. Fn даёт более строгий контракт без изменения захвата. Вызовы FnMut требуют изменяемый доступ к самому замыканию.",
+          "example": "let mut calls = 0;\nlet mut count = |x| { calls += 1; x + 1 };"
+        },
+        {
+          "heading": "Переиспользование",
+          "text": "Тот же контракт работает для String и чисел. Не добавляйте Copy без причины.",
+          "example": null
+        }
+      ],
+      "task": "Реализуйте twice: вызовите f для value, затем для полученного результата. Верните второй результат. T произвольный; F: FnMut(T) -> T.",
+      "starter": "pub fn twice<T, F: FnMut(T) -> T>(value: T, mut f: F) -> T {\n    value\n}",
+      "solution": "pub fn twice<T,F:FnMut(T)->T>(value:T,mut f:F)->T{let next=f(value);f(next)}",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n use super::*;\n #[test]\n fn case_1() { assert_eq!(twice(3,|x|x*2),12); }\n #[test]\n fn case_2() { let mut calls=0; let out=twice(0,|x|{calls+=1;x+calls}); assert_eq!(out,3); assert_eq!(calls,2); }\n #[test]\n fn case_3() { assert_eq!(twice(String::from(\"a\"),|mut s|{s.push('!');s}),\"a!!\"); }\n}",
+      "hints": [
+        "Сначала сохраните f(value) в отдельную переменную.",
+        "Затем вызовите f(next)."
+      ],
+      "test_labels": [
+        "Преобразование",
+        "Изменяемый захват",
+        "Не Copy тип"
+      ],
+      "readings": [
+        {
+          "title": "Stanford CS110L: error handling",
+          "url": "https://web.stanford.edu/class/cs110l/"
+        },
+        {
+          "title": "The Rust Book: recoverable errors",
+          "url": "https://doc.rust-lang.org/book/ch09-02-recoverable-errors-with-result.html"
+        },
+        {
+          "title": "Metanit: обработка ошибок",
+          "url": "https://metanit.com/rust/tutorial/"
+        }
+      ],
+      "visual": null,
+      "quiz": null,
+      "prerequisites": [
+        "adv-checked"
+      ]
+    },
+    {
+      "id": "adv-typestate",
+      "module": "reliable",
+      "track": "advanced",
+      "kind": "code",
+      "title": "Состояние выражается типом",
+      "minutes": 15,
+      "xp": 75,
+      "summary": "Переход Draft → Published.",
+      "outcome": "Использовать композицию типов для перехода состояния.",
+      "common_mistake": "&self вместо self не выражает потребление черновика. Не меняйте заданную сигнатуру.",
+      "theory": [
+        {
+          "heading": "Type-state",
+          "text": "Разные состояния можно представить разными структурами. Метод publish(self) потребляет Draft, так что исходный черновик больше нельзя использовать после успешного перехода. Published не имеет publish, и повторная публикация недоступна на уровне API. Это небольшая альтернатива runtime-флагам.",
+          "example": "pub struct Draft { title: String }\npub struct Published { pub title: String }"
+        },
+        {
+          "heading": "Цена такого дизайна",
+          "text": "При Err черновик тоже потреблён. Для сохранения неуспешного черновика API мог бы возвращать (Draft, Error); это важный компромисс, а не универсально лучший паттерн.",
+          "example": null
+        }
+      ],
+      "task": "Добавьте Draft::publish(self): пустой или пробельный title даёт Err(\"пустой заголовок\"), иначе Ok(Published) с исходным title без обрезки.",
+      "starter": "pub struct Draft { title: String }\npub struct Published { pub title: String }\nimpl Draft {\n    pub fn new(title: String) -> Self { Self { title } }\n    pub fn publish(self) -> Result<Published, &'static str> {\n        Err(\"пустой заголовок\")\n    }\n}",
+      "solution": "pub struct Draft{title:String} pub struct Published{pub title:String} impl Draft{pub fn new(title:String)->Self{Self{title}} pub fn publish(self)->Result<Published,&'static str>{if self.title.trim().is_empty(){Err(\"пустой заголовок\")}else{Ok(Published{title:self.title})}}}",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n use super::*;\n #[test]\n fn case_1() { let p=Draft::new(String::from(\"Rust\")).publish().unwrap(); assert_eq!(p.title,\"Rust\"); }\n #[test]\n fn case_2() { assert!(matches!(Draft::new(String::from(\" \t\")).publish(),Err(\"пустой заголовок\"))); }\n #[test]\n fn case_3() { assert_eq!(Draft::new(String::from(\" Rust \")).publish().unwrap().title,\" Rust \"); }\n}",
+      "hints": [
+        "Проверяйте trim().is_empty(), но сохраняйте исходную строку.",
+        "Верните Ok(Published { title: self.title })."
+      ],
+      "test_labels": [
+        "Переход состояния",
+        "Пробельный заголовок",
+        "Не изменять исходник"
+      ],
+      "readings": [
+        {
+          "title": "Stanford CS110L: error handling",
+          "url": "https://web.stanford.edu/class/cs110l/"
+        },
+        {
+          "title": "The Rust Book: recoverable errors",
+          "url": "https://doc.rust-lang.org/book/ch09-02-recoverable-errors-with-result.html"
+        },
+        {
+          "title": "Metanit: обработка ошибок",
+          "url": "https://metanit.com/rust/tutorial/"
+        }
+      ],
+      "visual": null,
+      "quiz": null,
+      "prerequisites": [
+        "adv-fnmut"
+      ]
+    },
+    {
+      "id": "adv-thread",
+      "module": "concurrency",
+      "track": "advanced",
+      "kind": "code",
+      "title": "Передаём данные потоку",
+      "minutes": 12,
+      "xp": 75,
+      "summary": "move и JoinHandle.",
+      "outcome": "Объяснять владение данными и ожидание потока.",
+      "common_mistake": "Ссылка на локальный Vec не может произвольно пережить владельца.",
+      "theory": [
+        {
+          "heading": "Отдельный поток, отдельное владение",
+          "text": "thread::spawn принимает замыкание, которое может пережить текущую функцию. move переносит Vec в замыкание. join ждёт завершения и возвращает Result: поток мог запаниковать. Здесь вход ограничен, а вычисление не должно паниковать, поэтому expect документирует внутренний инвариант, не проверяет пользовательский ввод.",
+          "example": "let handle = std::thread::spawn(move || values.len());\nlet size = handle.join().expect(\"worker panicked\");"
+        },
+        {
+          "heading": "Не обещаем ускорение",
+          "text": "Для такой маленькой суммы создание потока обычно дороже вычисления. Урок изучает контракт, не оптимизацию. Unit-тесты проверяют ответ; соблюдение spawn требует чтения кода.",
+          "example": null
+        }
+      ],
+      "task": "Передайте Vec<u32> в новый поток, сложите элементы и верните сумму после join. Не более 1000 значений, каждое <= 1000.",
+      "starter": "pub fn sum_in_thread(values: Vec<u32>) -> u32 {\n    0\n}",
+      "solution": "pub fn sum_in_thread(values:Vec<u32>)->u32{std::thread::spawn(move||values.into_iter().sum()).join().expect(\"worker panicked\")}",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n use super::*;\n #[test]\n fn case_1() { assert_eq!(sum_in_thread(vec![2,3,4]),9); }\n #[test]\n fn case_2() { assert_eq!(sum_in_thread(vec![]),0); }\n #[test]\n fn case_3() { assert_eq!(sum_in_thread(vec![7]),7); }\n}",
+      "hints": [
+        "Используйте move ||, чтобы поток владел Vec.",
+        "Замыкание возвращает sum(), а вызывающий код — результат join()."
+      ],
+      "test_labels": [
+        "Сумма",
+        "Пустой Vec",
+        "Одно значение"
+      ],
+      "readings": [
+        {
+          "title": "Stanford CS110L: multithreading",
+          "url": "https://web.stanford.edu/class/cs110l/"
+        },
+        {
+          "title": "The Rust Book: concurrency",
+          "url": "https://doc.rust-lang.org/book/ch16-00-concurrency.html"
+        },
+        {
+          "title": "Metanit: многопоточность",
+          "url": "https://metanit.com/rust/tutorial/"
+        }
+      ],
+      "visual": null,
+      "quiz": null,
+      "prerequisites": [
+        "adv-typestate"
+      ]
+    },
+    {
+      "id": "adv-mutex",
+      "module": "concurrency",
+      "track": "advanced",
+      "kind": "code",
+      "title": "Общее состояние без гонки",
+      "minutes": 18,
+      "xp": 75,
+      "summary": "Arc + Mutex и жизненный цикл guard.",
+      "outcome": "Разделять shared ownership и синхронизацию.",
+      "common_mistake": "Arc не делает содержимое автоматически изменяемым и не заменяет Mutex.",
+      "theory": [
+        {
+          "heading": "Владение и доступ — разные задачи",
+          "text": "Arc даёт несколько владельцев выделения памяти, но сам по себе не разрешает произвольное изменение. Mutex сериализует доступ к содержимому. Guard удерживает lock до конца своей области. Не держите lock во время join потока, которому нужен этот же lock.",
+          "example": "let shared = std::sync::Arc::new(std::sync::Mutex::new(0u32));"
+        },
+        {
+          "heading": "Улучшение эффективности",
+          "text": "Здесь каждый инкремент отдельный lock для демонстрации. В реальном коде локальная сумма + редкое объединение могут уменьшить contention.",
+          "example": null
+        }
+      ],
+      "task": "Создайте workers потоков; каждый увеличивает общий счётчик 100 раз под Mutex. Дождитесь всех потоков и верните итог. workers от 0 до 8.",
+      "starter": "pub fn shared_count(workers: usize) -> u32 {\n    0\n}",
+      "solution": "pub fn shared_count(workers:usize)->u32{use std::sync::{Arc,Mutex};let count=Arc::new(Mutex::new(0u32));let mut handles=Vec::new();for _ in 0..workers{let c=Arc::clone(&count);handles.push(std::thread::spawn(move||{for _ in 0..100{*c.lock().expect(\"poisoned\")+=1;}}));}for h in handles{h.join().expect(\"worker panicked\");}let value=*count.lock().expect(\"poisoned\");value}",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n use super::*;\n #[test]\n fn case_1() { assert_eq!(shared_count(4),400); }\n #[test]\n fn case_2() { assert_eq!(shared_count(0),0); }\n #[test]\n fn case_3() { assert_eq!(shared_count(1),100); }\n}",
+      "hints": [
+        "Каждому потоку нужен Arc::clone, затем move-замыкание.",
+        "Сохраните JoinHandle и дождитесь всех перед чтением счётчика."
+      ],
+      "test_labels": [
+        "Несколько потоков",
+        "Нет потоков",
+        "Один поток"
+      ],
+      "readings": [
+        {
+          "title": "Stanford CS110L: multithreading",
+          "url": "https://web.stanford.edu/class/cs110l/"
+        },
+        {
+          "title": "The Rust Book: concurrency",
+          "url": "https://doc.rust-lang.org/book/ch16-00-concurrency.html"
+        },
+        {
+          "title": "Metanit: многопоточность",
+          "url": "https://metanit.com/rust/tutorial/"
+        }
+      ],
+      "visual": null,
+      "quiz": null,
+      "prerequisites": [
+        "adv-thread"
+      ]
+    },
+    {
+      "id": "adv-channel",
+      "module": "concurrency",
+      "track": "advanced",
+      "kind": "code",
+      "title": "Передаём сообщения",
+      "minutes": 18,
+      "xp": 75,
+      "summary": "Канал вместо общей коллекции.",
+      "outcome": "Объяснять закрытие канала и порядок одного producer.",
+      "common_mistake": "Не сохраняйте лишний Sender там, где ждёте завершения receiver.",
+      "theory": [
+        {
+          "heading": "mpsc и завершение канала",
+          "text": "mpsc::channel создаёт Sender и Receiver. Producer отправляет значения, consumer читает их. Итератор receiver заканчивается только когда все Sender уничтожены. Если оставить лишнюю копию Sender у consumer, он может ждать бесконечно. Канал здесь unbounded; для ограничения очереди используют sync_channel.",
+          "example": "let (tx, rx) = std::sync::mpsc::channel();\n// producer: tx.send(value)\n// consumer: rx.into_iter().collect()"
+        },
+        {
+          "heading": "Границы модели",
+          "text": "При нескольких producers общий порядок между ними не задан так же просто. Для unbounded канала нужно отдельно контролировать нагрузку.",
+          "example": null
+        }
+      ],
+      "task": "В отдельном потоке удвойте каждый элемент Vec<i32> и отправьте через канал. Соберите результаты в исходном порядке. Не более 1000 элементов в диапазоне -1000..=1000.",
+      "starter": "pub fn channel_double(values: Vec<i32>) -> Vec<i32> {\n    Vec::new()\n}",
+      "solution": "pub fn channel_double(values:Vec<i32>)->Vec<i32>{let(tx,rx)=std::sync::mpsc::channel();let h=std::thread::spawn(move||{for v in values{tx.send(v*2).expect(\"receiver closed\");}});let result=rx.into_iter().collect();h.join().expect(\"worker panicked\");result}",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n use super::*;\n #[test]\n fn case_1() { assert_eq!(channel_double(vec![3,-2,0]),vec![6,-4,0]); }\n #[test]\n fn case_2() { assert!(channel_double(vec![]).is_empty()); }\n #[test]\n fn case_3() { assert_eq!(channel_double(vec![2,2]),vec![4,4]); }\n}",
+      "hints": [
+        "Перенесите единственный Sender в поток.",
+        "После завершения producer Sender упадёт, и rx.into_iter() завершится."
+      ],
+      "test_labels": [
+        "Порядок сообщений",
+        "Пустой ввод",
+        "Повторы"
+      ],
+      "readings": [
+        {
+          "title": "Stanford CS110L: multithreading",
+          "url": "https://web.stanford.edu/class/cs110l/"
+        },
+        {
+          "title": "The Rust Book: concurrency",
+          "url": "https://doc.rust-lang.org/book/ch16-00-concurrency.html"
+        },
+        {
+          "title": "Metanit: многопоточность",
+          "url": "https://metanit.com/rust/tutorial/"
+        }
+      ],
+      "visual": null,
+      "quiz": null,
+      "prerequisites": [
+        "adv-mutex"
+      ]
+    },
+    {
+      "id": "adv-atomic",
+      "module": "concurrency",
+      "track": "advanced",
+      "kind": "code",
+      "title": "Атомарный счётчик",
+      "minutes": 18,
+      "xp": 75,
+      "summary": "Ordering и граница обещаний.",
+      "outcome": "Ограничивать контракт атомарного счётчика.",
+      "common_mistake": "Relaxed не делает несвязанные чтения/записи других данных упорядоченными.",
+      "theory": [
+        {
+          "heading": "Atomic — не универсальный lock",
+          "text": "AtomicUsize позволяет атомарно менять число без Mutex. Relaxed обеспечивает атомарность счётчика, но не публикацию произвольных соседних данных. В этом примере join отдельно дожидается всех потоков; других данных для синхронизации нет. Для другой задачи выбор Ordering нужно обосновывать заново.",
+          "example": "counter.fetch_add(1, std::sync::atomic::Ordering::Relaxed);"
+        },
+        {
+          "heading": "Не переоценивайте тесты",
+          "text": "Несколько успешных запусков не доказывают корректность memory ordering. Нужны аргументация модели и при сложных алгоритмах специализированное тестирование.",
+          "example": null
+        }
+      ],
+      "task": "Создайте workers потоков; каждый атомарно увеличивает общий счётчик 100 раз. Дождитесь всех и верните число. workers от 0 до 8.",
+      "starter": "pub fn atomic_count(workers: usize) -> usize {\n    0\n}",
+      "solution": "pub fn atomic_count(workers:usize)->usize{use std::sync::{Arc,atomic::{AtomicUsize,Ordering}};let count=Arc::new(AtomicUsize::new(0));let mut handles=Vec::new();for _ in 0..workers{let c=Arc::clone(&count);handles.push(std::thread::spawn(move||{for _ in 0..100{c.fetch_add(1,Ordering::Relaxed);}}));}for h in handles{h.join().expect(\"worker panicked\");}count.load(Ordering::Relaxed)}",
+      "tests": "#[cfg(test)]\nmod rustpath_tests {\n use super::*;\n #[test]\n fn case_1() { assert_eq!(atomic_count(4),400); }\n #[test]\n fn case_2() { assert_eq!(atomic_count(0),0); }\n #[test]\n fn case_3() { for _ in 0..3{assert_eq!(atomic_count(2),200);} }\n}",
+      "hints": [
+        "Нужен Arc<AtomicUsize>, а не изменяемая usize.",
+        "Вызывайте fetch_add, затем join каждого handle, затем load."
+      ],
+      "test_labels": [
+        "Атомарные обновления",
+        "Нет работников",
+        "Несколько запусков"
+      ],
+      "readings": [
+        {
+          "title": "Stanford CS110L: multithreading",
+          "url": "https://web.stanford.edu/class/cs110l/"
+        },
+        {
+          "title": "The Rust Book: concurrency",
+          "url": "https://doc.rust-lang.org/book/ch16-00-concurrency.html"
+        },
+        {
+          "title": "Metanit: многопоточность",
+          "url": "https://metanit.com/rust/tutorial/"
+        }
+      ],
+      "visual": null,
+      "quiz": null,
+      "prerequisites": [
+        "adv-channel"
       ]
     }
   ],
   "roadmap": [
     {
-      "title": "05 / Lifetimes и generics",
-      "description": "Ограничения типов, сложные заимствования, API библиотек.",
-      "outcome": "Библиотека с документированным публичным API и тестами."
+      "title": "Async и backend",
+      "description": "Tokio, HTTP, PostgreSQL, auth и транзакции — следующий проектный блок.",
+      "outcome": "Многопользовательский сервис с контрактными тестами."
     },
     {
-      "title": "06 / Async и конкурентность",
-      "description": "Tokio, Send/Sync, каналы, отмена, backpressure.",
-      "outcome": "Очередь задач с корректным завершением и ограничением нагрузки."
+      "title": "Эксплуатация и безопасность",
+      "description": "Наблюдаемость, нагрузка, бэкапы и защищённое исполнение кода.",
+      "outcome": "Развёрнутый сервис с runbook и проверкой восстановления."
     },
     {
-      "title": "07 / Backend и PostgreSQL",
-      "description": "Axum, SQLx, миграции, транзакции, API и авторизация.",
-      "outcome": "Многопользовательский REST API с тестами и OpenAPI."
-    },
-    {
-      "title": "08 / Инженерная практика",
-      "description": "Архитектура, tracing, профилирование, CI, Docker и безопасность.",
-      "outcome": "Развёрнутый сервис с метриками, бэкапами и runbook."
-    },
-    {
-      "title": "09 / Capstone + code review",
-      "description": "Самостоятельный продукт, нагрузочные тесты и внешнее ревью.",
-      "outcome": "Защищённый проект; оценка компетенций по рубрике, не автоматический титул middle."
+      "title": "Capstone + внешнее ревью",
+      "description": "Самостоятельный продукт и защита инженерных решений.",
+      "outcome": "Оценка компетенций по рубрике, не автоматический титул middle."
     }
   ]
 }

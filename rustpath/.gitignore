@@ -1,27 +1,7 @@
+.env
 **/target/
 **/node_modules/
 **/dist/
 **/__pycache__/
 *.log
 .DS_Store
-# Default ignored files
-/shelf/
-/workspace.xml
-# Editor-based HTTP Client requests
-/httpRequests/
-# Ignored default folder with query files
-/queries/
-# Datasource local storage ignored files
-/dataSources/
-/dataSources.local.xml
-# Зависимости
-node_modules/
-
-# Файлы с переменными окружения и секретами
-.env
-.env.*
-!.env.example
-
-# Закрытые ключи
-*.pem
-*.key

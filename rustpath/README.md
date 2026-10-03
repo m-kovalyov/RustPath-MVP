@@ -1,83 +1,64 @@
-# RustPath
+# RustPath v0.2
 
-Интерактивная платформа изучения Rust на русском языке. **Это MVP, не готовый production-сервис и не полный курс до middle.**
+Русскоязычная платформа практического изучения Rust. **Это развивающийся учебный продукт, не законченный курс до middle и не готовая публичная платформа исполнения недоверенного кода.**
 
-## Уже реализовано
+## Что нового
 
-- Vue 3 + TypeScript, Composition API, Pinia и Vue Router.
-- Адаптивный интерфейс, светлая/тёмная тема по настройкам системы.
-- 4 учебных модуля, 16 оригинальных уровней, теория, задачи и пошаговые подсказки.
-- CodeMirror 6: подсветка Rust, номера строк, горячая клавиша Ctrl/⌘ + Enter.
-- Rust API: Axum, Tokio, SQLx; PostgreSQL и миграции.
-- Гостевая сессия: случайный токен в HttpOnly cookie, в БД только SHA-256 хеш.
-- Серверные черновики, прогресс, XP, последовательное открытие уровней, streak по дням UTC.
-- Проверка Rust-кода через приватный runner: rustc + unit-тесты в отдельном контейнере.
-- Транзакционное начисление XP: повторные успешные решения не дают дополнительный опыт.
-- Docker Compose, unit/integration тесты и подготовленная GitHub Actions CI.
+- **44 урока / 11 модулей / 3 независимых маршрута**: «С нуля» (12), «Основы Rust» (16), «Продвинутый Rust» (16).
+- Новые вводные темы: программа и main, let/mut, типы, shadowing, bool, const, объявление функций, аргументы, результат и композиция.
+- Продвинутые темы: generics, associated types, dyn Trait, lifetimes, Cow, структуры со ссылками, Result/?, checked arithmetic, FnMut, type-state, потоки, Arc/Mutex, каналы и Atomic.
+- **3 серверных квиза** с объяснениями. Остальные 41 урок — код с rustc/unit-тестами. Квизы работают без compiler runner.
+- Серверные закладки и раздел повторения. Сохраняются с гостевой сессией в PostgreSQL.
+- Поиск тем внутри маршрута, компактные раскрываемые модули и прогресс выбранного маршрута.
+- Уроки разделены на «Разобраться», «Практика», «Материалы»: меньше информации одновременно.
+- Учебная ownership-лаборатория: пошаговые move/borrow/drop, лёгкий CSS-объём и переходы; reduced-motion поддерживается.
+- Материалы для чтения в каждом уроке: Metanit, Brown University, Stanford CS110L, The Rust Book. Задания и тексты написаны отдельно; университеты не связаны с этим проектом.
 
-Runner — вспомогательный Python-сервис управления Docker; бизнес-логика и публичный backend написаны на Rust. Docker-сокет не доступен API.
+**Все 16 старых ID и XP сохранены.** Вводные уроки не закрывают прежний маршрут. Пройденные уроки доступны для повторения независимо от prerequisites. Общий процент может уменьшиться из-за добавленных уроков — это не потеря прогресса. Максимум нового курса: 2330 XP, повтор не добавляет опыт.
 
-## Быстрый локальный запуск
+## Обновление работающей версии на Windows
 
-Требования: Docker Engine с работающими cgroup memory/pids/CPU, Docker Compose v2, минимум 4 ГБ RAM и около 8 ГБ свободного диска. Docker Desktop на Windows/macOS подходит при включённой виртуализации.
+Читайте **`docs/UPDATE-WINDOWS.md`**. Обновляйте **в той же папке**, из которой раньше запускали Docker Compose. Оставьте старый `.env`, тот же адрес `http://localhost:8080` и cookie браузера. Новые секреты создавать не нужно. Не используйте `docker compose down -v`.
+
+## Первый локальный запуск
+
+Нужны Docker Engine/Docker Desktop с рабочими cgroup CPU/memory/pids, Docker Compose v2, минимум 4 ГБ RAM и около 8 ГБ свободного диска. На Windows нужен WSL 2; после установки Docker Desktop он должен быть запущен.
 
 ```bash
 cp .env.example .env
 ```
 
-В `.env` замените оба значения `replace_with_64_random_hex_characters` независимыми случайными hex-секретами. Их можно сгенерировать командой `openssl rand -hex 32`. **Не публикуйте `.env`.** Пароль БД должен быть hex, чтобы URL подключения не требовал экранирования.
+В `.env` замените два placeholder независимыми случайными hex-секретами. Например, `openssl rand -hex 32` для каждого. Не публикуйте `.env`. Остальные значения по умолчанию подходят для локального запуска.
 
 ```bash
 docker pull rust:1.99.0-slim-bookworm
 docker compose up --build -d
-docker compose logs -f api
 ```
 
-Откройте **http://localhost:8080**. Первая сборка скачивает зависимости и может занять несколько минут. Миграции применяются при старте API. `APP_ORIGIN` должен точно совпадать с адресом в браузере: `localhost` и `127.0.0.1` не взаимозаменяемы.
+Откройте **http://localhost:8080**. Первая сборка занимает несколько минут. Миграции применяются автоматически; v0.2 добавляет таблицу bookmarks и не удаляет прежние данные.
 
 ```bash
 curl http://localhost:8080/api/health
-# {"status":"ok"}
-python3 tests/smoke.py
-# Полная проверка 16 уровней через локальный API/runner (~2 минуты).
+docker compose ps
+docker compose logs --tail=80 web api runner
 ```
 
-Остановка: `docker compose down`. Данные PostgreSQL сохраняются в volume. `docker compose down -v` **удаляет весь прогресс**.
+Origin в `.env` должен точно совпадать с адресом браузера (`localhost` и `127.0.0.1` различаются). Остановка: `docker compose down`; следующий запуск: `docker compose up -d`. `down -v` удаляет прогресс.
 
-Если возникает cgroup/memory-limit ошибка, исправьте/обновите Docker-хост. Не отключайте изоляцию и не запускайте пользовательский код непосредственно на API-хосте.
+## Стек
 
-## Разработка без контейнеров приложения
+Vue 3 + TypeScript, Pinia, Vue Router, Vite; CodeMirror загружается только при открытии кодовой практики. Rust edition 2024 + Axum/Tokio/SQLx; PostgreSQL; приватный Python runner управляет одноразовыми Rust-контейнерами. Публичный API и бизнес-логика на Rust. Traits, композиция, Repository, Adapter, DI и DTO описаны в `docs/ARCHITECTURE.md`.
 
-Поднимите собственную PostgreSQL и приватный runner на подходящем Docker-хосте. Создайте пустую БД `rustpath`. API не требует заранее применять миграции.
+## Проверки и разработка
 
-```bash
-cd backend
-export DATABASE_URL=postgresql://USER:PASSWORD@localhost:5432/rustpath
-export RUNNER_URL=http://localhost:4000
-export RUNNER_SECRET=YOUR_PRIVATE_RUNNER_SECRET
-export APP_ORIGIN=http://localhost:5173
-export COOKIE_SECURE=false
-cargo run --locked
-```
-
-В другом терминале:
-
-```bash
-cd frontend
-npm ci
-npm run dev
-```
-
-Vite проксирует `/api` в `127.0.0.1:3000`. Открывайте `http://localhost:5173`. Нельзя безопасно заменить runner вызовом `rustc` внутри основного API.
-
-## Проверки
+Без контейнеров приложения: PostgreSQL + `DATABASE_URL`, `RUNNER_URL`, `RUNNER_SECRET`, `APP_ORIGIN=http://localhost:5173`, `COOKIE_SECURE=false`; `cargo run --locked` в backend и `npm ci && npm run dev` в frontend. Vite проксирует /api в 127.0.0.1:3000. Не заменяйте runner прямым запуском learner code на API-хосте.
 
 ```bash
 cd backend
 cargo fmt --check
 cargo clippy --all-targets -- -D warnings
 cargo test --locked
-# Используйте только выделенную тестовую БД:
+# Только выделенная тестовая БД:
 INTEGRATION_DATABASE_URL=postgresql://USER:PASSWORD@localhost/rustpath_test cargo test --locked -- --ignored
 cd ../frontend
 npm ci && npm run build && npm test
@@ -87,39 +68,37 @@ pip3 install -r runner/requirements.txt
 python3 tests/test_runner.py
 ```
 
-`check_curriculum.py` запускает только доверенные встроенные эталонные решения. Никогда не используйте этот скрипт для произвольного пользовательского кода.
+Для UI contract тестов запустите API/frontend, затем из frontend:
+
+```bash
+npx playwright install chromium
+npm run test:ui
+```
+
+По умолчанию UI тест использует http://localhost:5173; `APP_BASE_URL` задаёт другой адрес. Проверяются реальные quiz/bookmark/draft API + PostgreSQL. Ответы compiler-error/success в UI тесте явно подменены — это не доказательство Docker sandbox. По желанию `QA_CAPTURE_DIR` сохраняет статические снимки DOM; `BROWSER_EXECUTABLE` задаёт локальный Chromium.
+
+Полный локальный deployment smoke:
+
+```bash
+python3 tests/smoke.py
+```
+
+Проверяет все 44 урока и XP/закладки; требует рабочего Docker sandbox, занимает около 5 минут из-за лимита попыток. Не запускайте smoke на публичной production-инсталляции.
 
 ## Структура
 
-```text
-backend/       Rust API, доменные модели, репозиторий, runner adapter, курс, миграции
-frontend/      Vue интерфейс, Pinia store, типы API, компоненты, CodeMirror
-runner/        Приватный HTTP сервис контейнерной компиляции
-tests/         curriculum QA, runner tests, deployment smoke
-docs/          архитектура, безопасность, roadmap, результаты QA
-compose.yaml   Локальная конфигурация запуска
-```
+- `backend/`: API, домен, адаптеры, миграции, course.json.
+- `frontend/`: интерфейс, store, маршруты, редактор, ownership-модель.
+- `runner/`: приватный сервис исполнения.
+- `tests/`: curriculum generator, immutable legacy fixture, API/runner/UI/smoke проверки.
+- `docs/`: архитектура, источники, обновление Windows, безопасность, QA и планы.
 
-## Что пока не входит
+## Известные ограничения
 
-Аккаунты и восстановление доступа, синхронизация между устройствами, email/пароли/OIDC, CMS, интервальное повторение, продвинутые уроки 05–09, проекты с ревью, anti-cheat, дипломы, платежи, очереди выполнения, мониторинг и production-развёртывание. Они не имитируются в интерфейсе.
+- Гостевой доступ зависит от cookie. Нет постоянных аккаунтов, восстановления и синхронизации между устройствами.
+- Sandbox поддерживает std, не произвольные Cargo crates. Async/Tokio/backend/DB/capstone уроки ещё в плане.
+- Unit-тесты проверяют поведение, но не всегда использование нужного приёма (например, shadowing или spawn). Это явно отмечено в уроках.
+- Обычные контейнеры и Docker socket у development runner не подходят как окончательная публичная security boundary. Нужны dedicated execution node и gVisor/microVM, audit, ingress quotas и очередь.
+- Полный Docker E2E v0.2 здесь не подтверждён; пользователь подтвердил локальный запуск предыдущей v0.1 на Windows. GitHub Actions workflow подготовлен, не запускался в этой среде.
 
-Гостевой прогресс хранится в БД, но доступ к нему связан с cookie в конкретном браузере. При очистке cookie восстановление не реализовано. Серия дней считается по UTC, что явно указано в интерфейсе.
-
-## Достоверность проверки
-
-Смотрите `docs/QA.md`: frontend/Rust сборка, API с PostgreSQL и эталонные решения проверены. В среде создания проекта Docker-контейнеры не запускаются из-за cgroup-ограничения; полный контейнерный запуск и CI pipeline здесь **не подтверждены**. Успешное состояние интерфейса отдельно проверено с подменённым HTTP-ответом, а не выдаётся за реальный запуск sandbox.
-
-## Публичный запуск
-
-Не открывайте текущий development Compose в интернет как готовую платформу исполнения кода. Сначала выполните `docs/SECURITY.md`, `docs/DEPLOYMENT.md` и настоящий `tests/smoke.py` на целевом хосте. Нужны отдельный execution-хост, усиленная изоляция (gVisor/microVM), TLS, аккаунты, rate limiting на ingress и аудит.
-
-## Референсы
-
-- Rustlings: https://github.com/rust-lang/rustlings — маленькие практические упражнения.
-- 100 exercises to learn Rust: https://github.com/mainmatter/100-exercises-to-learn-rust — последовательное learning-by-doing. Его контент имеет CC BY-NC 4.0; в этот проект он не копировался.
-- The Rust Programming Language: https://doc.rust-lang.org/book/ — техническая основа маршрута.
-- Vue: https://vuejs.org/guide/introduction.html — Composition API и SFC.
-- Axum: https://docs.rs/axum/ — API на Rust.
-
-Учебные задания здесь написаны заново. Не использованы чужие логотипы, иллюстрации или тексты уроков.
+Перед публикацией выполняйте `docs/SECURITY.md` и `docs/DEPLOYMENT.md`. Подробные результаты — `docs/QA.md`, учебная/дизайн-методика — `docs/SOURCES.md`.

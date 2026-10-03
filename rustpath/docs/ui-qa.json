@@ -1,14 +1,39 @@
 {
-  "screens": 10,
+  "version": "0.2.0",
+  "states": [
+    "home-desktop",
+    "search-empty",
+    "advanced-desktop",
+    "intro-theory",
+    "quiz-desktop",
+    "quiz-success",
+    "review-bookmarks",
+    "review-empty",
+    "materials",
+    "code-practice",
+    "code-error-fixture",
+    "code-success-fixture",
+    "lab-create",
+    "lab-move",
+    "lab-borrow",
+    "lab-drop",
+    "roadmap-desktop",
+    "home-mobile",
+    "quiz-mobile",
+    "code-mobile",
+    "lab-mobile",
+    "review-mobile",
+    "home-dark",
+    "connection-error"
+  ],
   "widths": [
     1440,
     390
   ],
-  "javascript_errors": [],
+  "page_errors": [],
   "horizontal_overflow": false,
-  "hints": "pass",
-  "runner_unavailable_feedback": "pass",
-  "success_fixture": "pass (mock, not execution)",
-  "session_error": "pass",
-  "draft_autosave_reload": "pass (real API/PostgreSQL)"
+  "quiz_and_bookmark_persistence": "real API/PostgreSQL",
+  "code_draft_persistence": "real API/PostgreSQL",
+  "compiler_states": "explicit fixtures, not sandbox execution",
+  "reduced_motion": "pass"
 }

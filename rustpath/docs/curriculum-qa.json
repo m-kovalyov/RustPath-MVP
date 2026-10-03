@@ -1,98 +1,304 @@
 [
   {
+    "lesson": "intro-rust",
+    "kind": "quiz",
+    "status": "valid answer contract"
+  },
+  {
+    "lesson": "intro-main",
+    "kind": "quiz",
+    "status": "valid answer contract"
+  },
+  {
+    "lesson": "intro-let",
+    "kind": "code",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 1
+  },
+  {
+    "lesson": "intro-mut",
+    "kind": "code",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 1
+  },
+  {
+    "lesson": "intro-types",
+    "kind": "code",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 1
+  },
+  {
+    "lesson": "intro-shadow",
+    "kind": "code",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 1
+  },
+  {
+    "lesson": "intro-bool",
+    "kind": "code",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 3
+  },
+  {
+    "lesson": "intro-const",
+    "kind": "code",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 3
+  },
+  {
+    "lesson": "intro-function",
+    "kind": "code",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 1
+  },
+  {
+    "lesson": "intro-arguments",
+    "kind": "code",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 3
+  },
+  {
+    "lesson": "intro-return",
+    "kind": "quiz",
+    "status": "valid answer contract"
+  },
+  {
+    "lesson": "intro-compose",
+    "kind": "code",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 3
+  },
+  {
     "lesson": "hello",
+    "kind": "code",
     "solution": "passed",
     "starter": "fails as expected",
     "tests": 1
   },
   {
     "lesson": "arithmetic",
+    "kind": "code",
     "solution": "passed",
     "starter": "fails as expected",
     "tests": 3
   },
   {
     "lesson": "branches",
+    "kind": "code",
     "solution": "passed",
     "starter": "fails as expected",
     "tests": 3
   },
   {
     "lesson": "loops",
+    "kind": "code",
     "solution": "passed",
     "starter": "fails as expected",
     "tests": 3
   },
   {
     "lesson": "borrow",
+    "kind": "code",
     "solution": "passed",
     "starter": "fails as expected",
     "tests": 3
   },
   {
     "lesson": "mut-borrow",
+    "kind": "code",
     "solution": "passed",
     "starter": "fails as expected",
     "tests": 2
   },
   {
     "lesson": "owned-value",
+    "kind": "code",
     "solution": "passed",
     "starter": "fails as expected",
     "tests": 2
   },
   {
     "lesson": "slice",
+    "kind": "code",
     "solution": "passed",
     "starter": "fails as expected",
     "tests": 3
   },
   {
     "lesson": "option",
+    "kind": "code",
     "solution": "passed",
     "starter": "fails as expected",
     "tests": 3
   },
   {
     "lesson": "result",
+    "kind": "code",
     "solution": "passed",
     "starter": "fails as expected",
     "tests": 4
   },
   {
     "lesson": "iterator",
+    "kind": "code",
     "solution": "passed",
     "starter": "fails as expected",
     "tests": 3
   },
   {
     "lesson": "hashmap",
+    "kind": "code",
     "solution": "passed",
     "starter": "fails as expected",
     "tests": 3
   },
   {
     "lesson": "struct",
+    "kind": "code",
     "solution": "passed",
     "starter": "fails as expected",
     "tests": 2
   },
   {
     "lesson": "enum",
+    "kind": "code",
     "solution": "passed",
     "starter": "fails as expected",
     "tests": 3
   },
   {
     "lesson": "trait",
+    "kind": "code",
     "solution": "passed",
     "starter": "fails as expected",
     "tests": 3
   },
   {
     "lesson": "composition",
+    "kind": "code",
     "solution": "passed",
     "starter": "fails as expected",
     "tests": 4
+  },
+  {
+    "lesson": "adv-min",
+    "kind": "code",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 3
+  },
+  {
+    "lesson": "adv-clone",
+    "kind": "code",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 3
+  },
+  {
+    "lesson": "adv-associated",
+    "kind": "code",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 2
+  },
+  {
+    "lesson": "adv-dynamic",
+    "kind": "code",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 2
+  },
+  {
+    "lesson": "adv-longest",
+    "kind": "code",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 3
+  },
+  {
+    "lesson": "adv-split",
+    "kind": "code",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 4
+  },
+  {
+    "lesson": "adv-cow",
+    "kind": "code",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 3
+  },
+  {
+    "lesson": "adv-view",
+    "kind": "code",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 3
+  },
+  {
+    "lesson": "adv-positive",
+    "kind": "code",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 4
+  },
+  {
+    "lesson": "adv-checked",
+    "kind": "code",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 4
+  },
+  {
+    "lesson": "adv-fnmut",
+    "kind": "code",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 3
+  },
+  {
+    "lesson": "adv-typestate",
+    "kind": "code",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 3
+  },
+  {
+    "lesson": "adv-thread",
+    "kind": "code",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 3
+  },
+  {
+    "lesson": "adv-mutex",
+    "kind": "code",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 3
+  },
+  {
+    "lesson": "adv-channel",
+    "kind": "code",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 3
+  },
+  {
+    "lesson": "adv-atomic",
+    "kind": "code",
+    "solution": "passed",
+    "starter": "fails as expected",
+    "tests": 3
   }
 ]

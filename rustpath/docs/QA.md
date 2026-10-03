@@ -1,47 +1,61 @@
-# Результаты проверки
+# Проверка RustPath 0.2.0
 
-Дата: 2 октября 2026. Доказательства ниже относятся к этой сборке, а не к будущему production-развёртыванию.
+Дата: 2 октября 2026. Результаты относятся к этой сборке, а не к будущему production-развёртыванию.
 
 | Проверка | Результат | Граница доказательства |
 |---|---|---|
-| Rust API cargo check/build | PASS | Настоящая сборка Rust 1.99.0 |
-| cargo fmt --check, clippy -D warnings | PASS | Все targets, без предупреждений |
-| Rust unit tests | 7 PASS | Курс, скрытие ответов, prerequisites, streak, лимиты кода, cookie |
-| API + PostgreSQL integration | 1 PASS | Настоящая PostgreSQL 16.14; evaluator внедрён как fake |
-| Curriculum rustc tests | 16 решений PASS / 45 cases | Запускаются только доверенные встроенные reference sources |
-| Отрицательные starter решения | 16 отклонены | Проверяет, что задания не проходят «из коробки» |
-| Frontend typecheck + production build | PASS | Vue/TypeScript/Vite, lazy route loading |
-| Frontend progression unit tests | 3 PASS | Prerequisites, next lesson, unknown IDs |
-| npm install audit | 0 vulnerabilities на момент установки | Не заменяет полный security audit |
-| Runner HTTP/configuration tests | 7 PASS | Docker client mocked; параметры isolation и cleanup проверены |
-| Compose v2.39.4 config --quiet | PASS | Конфигурация валидна, сервисы не запускались |
+| Rust build, fmt, clippy -D warnings | PASS | Rust 1.99, все targets |
+| Rust unit tests | 8 PASS | Курс, prerequisites, приватные ответы, streak и ограничения |
+| API + PostgreSQL integration | 1 PASS | Настоящая PostgreSQL 16; evaluator подменён |
+| Curriculum | 41 решений / 111 проверок PASS; 3 quiz contracts PASS | Только доверенные эталонные решения через rustc |
+| Отрицательные starter-решения | Все 41 отклонены | Задания не проходят без изменений |
+| Frontend typecheck / production build | PASS | Lazy routes и отдельная загрузка редактора |
+| Frontend progression tests | 6 PASS | Независимые маршруты и совместимость старого прогресса |
+| npm audit | 0 vulnerabilities на момент проверки | Не заменяет security audit |
+| Runner tests | 7 PASS | Mocked Docker; лимиты, авторизация и cleanup |
+| Compose config --quiet | PASS | Проверка конфигурации, не запуск контейнеров |
 | Python compile | PASS | Runner и тестовые скрипты |
-| Browser UI checks | 10 состояний, PASS | 1440/390 px, нет page JS errors и horizontal overflow |
-| Ручная визуальная проверка | PASS после исправлений | Главная, урок, roadmap; mobile; errors; success fixture; dark mode |
-| Полный Docker execution E2E | NOT VERIFIED | Docker Engine 25.0.16 не может создать контейнер из-за ограничений cgroup этой среды |
-| GitHub Actions pipeline | NOT RUN HERE | Workflow подготовлен, запуск на GitHub ещё не выполнен |
-| Нагрузка / penetration test / WCAG certification | NOT PERFORMED | Не заявляются как готовые |
+| Browser UI | 24 состояния, 1440/390 px | Нет JS errors и горизонтального переполнения |
+| Визуальная проверка | PASS после исправлений | Снимки шаблонов desktop/mobile, dark, ошибки и успех |
+| Полный Docker execution 0.2 | NOT VERIFIED HERE | В этой среде недоступен запуск с требуемыми cgroup-лимитами |
+| GitHub Actions | NOT RUN HERE | CI подготовлена, не запускалась на GitHub |
+| Нагрузка / penetration / WCAG certification | NOT PERFORMED | Не заявляются как выполненные |
 
-## Интеграционный API тест
+## Что проверено реально
 
-Реально проверены с PostgreSQL: Origin обязателен для мутации; без cookie 401; закрытый уровень 403; public lesson не отдаёт solution/tests; черновики изолированы между двумя гостями; неверная попытка не открывает уровень; первая успешная выдаёт 50 XP; повторная даёт 0 XP; следующая тема открывается только владельцу результата. Правильность решения здесь задаёт тестовый evaluator, а не Docker.
+HTTP API и PostgreSQL: cookie/Origin, приватность черновиков и закладок между гостями, закрытые уроки, скрытие решений и ответов квизов, неверная попытка без XP, правильная попытка, повтор без повторного XP, открытие следующего урока. Миграция закладок добавляет таблицу, не удаляет старые данные. Исходная миграция 001 и ID/тесты/XP 16 прежних уроков сохранены.
 
-## Визуальные проверки
+В браузере: квиз, сохранение/удаление закладки, сохранение кода и восстановление после перезагрузки через настоящий API/PostgreSQL. Выбор маршрута, поиск, аккордеоны, вкладки, лаборатория и reduced-motion. Успех и ошибка **компилятора в UI — явные HTTP fixtures**, не доказательство работы sandbox. Подробности: `ui-qa.json`, `curriculum-qa.json`.
 
-10 состояний: главная desktop/mobile, урок desktop/mobile, roadmap desktop/mobile, недоступный runner, success fixture, тёмная главная, ошибка связи/повтор. Исправлены вылезавший логотип и отсутствующие glyph icons: использованы векторные UI-иконки. Проверены отступы и отсутствие наложений/горизонтального переполнения. Полная screen-reader проверка не выполнялась.
+Интерфейс стал компактнее: на главной раскрыт один модуль; теория, практика и источники разделены. Исправлены контраст неактивных состояний лаборатории, отображение radio в экспортированных превью и gutter редактора. Полная screen-reader проверка не выполнялась.
 
-Автосохранение черновика проверено в браузере: изменён код, дождались подтверждения сохранения, перезагрузили страницу и сравнили восстановленный текст. Это реальное сохранение через API/PostgreSQL.
+Пользователь сообщил об успешном локальном запуске 0.1 на Windows. Это не заменяет повторный E2E-тест 0.2 на его компьютере.
 
-Success state проверялся явным mocked HTTP ответом и не выдаётся за настоящее прохождение задания. Недоступный runner был проверен реальным запросом к API: показывается понятное сообщение 503, XP не начисляется.
+## Повторение проверок
 
-## Как закрыть оставшийся пробел
+```bash
+cd backend
+cargo fmt --check
+cargo clippy --all-targets -- -D warnings
+cargo test
+# Перед этой командой задайте INTEGRATION_DATABASE_URL для отдельной тестовой PostgreSQL:
+cargo test -- --ignored
+cd ../frontend
+npm ci
+npm test
+npm run build
+cd ..
+python tests/check_curriculum.py
+```
 
-На Linux/Docker Desktop с корректной поддержкой cgroup:
+UI: запустить API с тестовой БД и frontend dev server, затем `npm run test:ui` в frontend. Требуется Playwright Chromium (`npx playwright install chromium` на собственном компьютере). Проверка создаёт гостевые сессии в БД; не запускать на production.
+
+Полный smoke на целевой Windows Docker Desktop / Linux:
 
 ```bash
 docker pull rust:1.99.0-slim-bookworm
 docker compose up --build -d
-python3 tests/smoke.py
+python tests/smoke.py
 ```
 
-После этого отдельно проверить infinite loop, OOM, сетевые/файловые попытки, переполнение output и cleanup. Не отключать изоляцию для достижения зелёного результата. Готовая CI содержит Docker smoke шаг, но он здесь не запускался.
+Smoke занимает несколько минут из-за ограничения частоты запросов и проверяет все 44 урока. Далее отдельно проверить infinite loop, OOM, сеть/файловую систему, лимиты output, cleanup, нагрузку и восстановление backup. Не отключать изоляцию ради успешного теста. Перед публичным запуском выполнить `SECURITY.md` и `DEPLOYMENT.md`.
